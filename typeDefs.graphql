@@ -1,0 +1,28 @@
+scalar DateTime
+enum FileCategory {
+  JPG
+  PNG
+}
+type File {
+  id: ID!
+  url: String!
+  name String!
+  size: String!
+  created: DateTime!
+  description: String
+}
+input PostFileInput {
+  name: String!
+  description: String
+}
+input SearchFileArgs {
+  search: String!
+}
+type Query {
+  totalFiles: Int!
+  allFiles: [File!]!
+  searchFile(search: SearchFileArgs!): [File!]!
+}
+type Mutation {
+  postFile(input: PostFileInput!): File!
+}

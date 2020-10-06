@@ -2,11 +2,17 @@
 
 
 ## Prep
-1. Init git repo
-2. Write initital acceptance tests to describe the spec.
-3. Decide on framework to use.
-4. Decide API approach and protocol.
-5. Determine if database should be used.
+1. Init git repo -> ✓
+2. Write initital acceptance tests to describe the spec. -> ✓
+3. Decide on framework to use. -> ✓
+    - NextJS
+4. Decide API approach and protocol. -> ✓
+    - GraphQL, Apollo, Apollo-GraphQL-Express
+5. Determine if database should be used. -> ✓
+    - Yes. A database should be used because it will provide a more production ready API.
+    - MongoDb is a good choice because of its simplicity and good integration with Node ecosystem.
+    - A database will be used to generate the unique ids of file uploads which will be less hacky than incrementing an integer id, etc... 
+    - Because files can be stored with Db Id it will be more secure and properties can be set at upload time such as file size which will improve performance on app read.
 6. Develop Schema (Schema first...)
 7. Init yarn workspaces to delineate API/Client
 8. Init yarn package for API/Client
@@ -19,7 +25,7 @@
 4. Test all required API functionality is implemented
 5. Write expanded README section for API.
 
-## Develop Client App
+## Develop Client Ap✓p
 1. Use Schema as guide to component structure
 2. Initalize app framework/scaffolding.
 3. Get Jest tests running with coverage
