@@ -1,0 +1,11 @@
+{
+  "name": "api",
+  "version": "0.0.1",
+  "description": "Apollo Express GraphQL photo upload API for photo-upload-app",
+  "main": "dist/index.js",
+  "license": "MIT",
+  "private": true,
+  "devDependencies": {
+    "cross-env": "^7.0.2"
+  }
+}

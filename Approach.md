@@ -12,12 +12,12 @@
     - Yes. A database should be used because it will provide a more production ready API.
     - MongoDb is a good choice because of its simplicity and good integration with Node ecosystem.
     - A database will generate the unique ids of file uploads, which will be less hacky than incrementing an integer id, etc... 
-    - Because files can be stored with Db Id it will be more secure and properties can be set at upload time such as file size, which will improve performance on app read.
+    - Because files can be stored with Db Id it will be more secure and properties can be set at upload time such as file size, which will improve performance on app load.
 6. Develop Schema (schema first...) -> ✓
     - typeDefs.graphql now has complete schema for application
     - Following the schema first development pattern, with the shared schema complete, both front and backend(api) can be developed asynchronously with the "contract" between them formalized.
-7. Init yarn workspaces to delineate API/Client
-8. Init yarn package for API/Client
+7. Init yarn workspaces to delineate API/Client -> ✓
+8. Init yarn package for API/Client -> ✓
 9. Outline documentation
 10. Write security considerations README
 
