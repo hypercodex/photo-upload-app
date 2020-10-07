@@ -2,7 +2,9 @@ import React from 'react'
 
 const Home: React.FC = () => {
   return (
-    <div>Welcome to File Upload App!</div>
+    <div>
+      <h1>Welcome to File Upload App!</h1>
+    </div>
   )
 }
 
