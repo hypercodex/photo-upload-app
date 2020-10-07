@@ -1,10 +1,10 @@
 import React, { useState } from 'react'
 
 
-import style from './Files.module.scss'
+import style from './FileSet.module.scss'
 
 
-const Files: React.FC = () => {
+const FileSet: React.FC = () => {
 
   const [files, setFiles] = useState(Array(7).fill())
 
@@ -17,4 +17,4 @@ const Files: React.FC = () => {
   )
 } 
 
-export default Files
+export default FileSet
