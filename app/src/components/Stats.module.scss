@@ -1,0 +1,25 @@
+@use '../styles/base';
+
+.wrapper {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+}
+
+
+@mixin fontSizeBreak($fontSize) {
+  @media (min-width: base.$mobileBreak) and (max-width: 699px) {
+    font-size: $fontSize;
+  }
+}
+
+
+.docCount {
+  font-size: 2rem;
+  @include fontSizeBreak(1.5rem);
+}
+
+.aggDocSize {
+  font-size: 1.5rem;
+  @include fontSizeBreak(1.15rem);
+}

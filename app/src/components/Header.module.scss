@@ -3,6 +3,13 @@
 .header {
   @extend %sandwichContent;
   display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding-bottom: 0px !important;
+}
+
+.wrapper {
+  display: flex;
   justify-content: space-between;
   @media (max-width: base.$mobileBreak) {
     flex-direction: column-reverse;
