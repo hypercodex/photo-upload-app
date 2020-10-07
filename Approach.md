@@ -39,14 +39,14 @@
 
 ## Develop Client App
 1. Use Schema as guide to component structure
-2. Initalize app framework/scaffolding.
-3. Get Jest tests running with coverage
-4. Write a few basic tests to begin TDD
-5. Configure and prep all tooling:
-  - Jest
-  - Sass
-  - Webpack
-  - Typescript
+2. Initalize app framework/scaffolding.  ✓
+3. Get Jest tests running with coverage.  ✓
+4. Write a few basic tests to begin TDD.  ✓
+5. Configure and prep all tooling:  ✓
+  - Jest  ✓
+  - Sass  ✓
+  - Webpack  ✓
+  - Typescript  ✓
 6. Implement wireframe with presentational components (mobile/desktop)
 7. Connect client to API 
 8. Determine defualt App state
