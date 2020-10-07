@@ -18,7 +18,6 @@ interface NewFile {
 
 const Mutation = {
   async postFile(root: File, args: PostFileArgs, { db }: { db: Db }) {
-    console.log(args)
     const newFile: NewFile = {
       ...args.input,
       created: new Date()
