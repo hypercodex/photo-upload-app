@@ -1,12 +1,13 @@
 scalar DateTime
-enum FileCategory {
+enum FileType {
   JPG
   PNG
 }
 type File {
   id: ID!
   url: String!
-  name String!
+  name: String!
+  kind: FileType!
   size: String!
   created: DateTime!
   description: String
@@ -15,13 +16,13 @@ input PostFileInput {
   name: String!
   description: String
 }
-input SearchFileArgs {
+input SearchFileInput {
   search: String!
 }
 type Query {
   totalFiles: Int!
   allFiles: [File!]!
-  searchFile(search: SearchFileArgs!): [File!]!
+  searchFiles(input: SearchFileInput!): [File!]!
 }
 type Mutation {
   postFile(input: PostFileInput!): File!

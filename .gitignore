@@ -1,1 +1,7 @@
 **/node_modules/*
+**/dist/*
+!**/dist/.keep
+.env
+.env.json
+**/coverage/*
+
