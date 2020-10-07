@@ -3,6 +3,10 @@
   "version": "0.0.1",
   "description": "Apollo Express GraphQL photo upload API for photo-upload-app",
   "main": "dist/index.js",
+  "scripts": {
+    "start": "node dist/index.js",
+    "dev": "cd src/ && nodemon -e ts,json,graphql index.ts"
+  },
   "license": "MIT",
   "private": true,
   "devDependencies": {
@@ -13,5 +17,11 @@
     "nodemon": "^2.0.4",
     "ts-node": "^9.0.0",
     "typescript": "^4.0.3"
+  },
+  "dependencies": {
+    "apollo-server-express": "^2.18.2",
+    "express": "^4.17.1",
+    "graphql": "^15.3.0",
+    "graphql-playground-middleware-express": "^1.7.21"
   }
 }
