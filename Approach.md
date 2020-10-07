@@ -18,8 +18,8 @@
     - Following the schema first development pattern, with the shared schema complete, both front and backend(api) can be developed asynchronously with the "contract" between them formalized.
 7. Init yarn workspaces to delineate API/Client -> ✓
 8. Init yarn package for API/Client -> ✓
-9. Outline documentation
-10. Write security considerations README
+9. Outline documentation -> ✓
+10. Write security considerations README -> ✓
 
 ## Develop API
 1. Schema draft and implement Schema for API
