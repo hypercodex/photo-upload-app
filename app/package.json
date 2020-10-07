@@ -3,6 +3,11 @@
   "version": "0.0.1",
   "description": "NextJS React frontend for photo-upload-app",
   "main": "dist/index.js",
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start"
+  },
   "license": "MIT",
   "private": true,
   "devDependencies": {
