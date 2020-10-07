@@ -2,4 +2,6 @@
 **/dist/*
 !**/dist/.keep
 .env
+.env.json
 **/coverage/*
+
