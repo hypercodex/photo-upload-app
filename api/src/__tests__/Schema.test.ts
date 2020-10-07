@@ -45,7 +45,7 @@ const testCaseAllFiles = {
 }
 
 const testCaseSearchFiles = {
-  id: 'query allFiles',
+  id: 'query searchFiles',
   query: `
     query SearchFiles($input: SearchFileInput!) {
       searchFiles(input: $input) {
