@@ -1,0 +1,15 @@
+@use '../styles/base';
+
+.searchForm {
+  width: 50%;
+  @media (max-width: base.$mobileBreak) {
+    width: 100%;
+
+  }
+}
+
+.searchInput {
+  height: 35px;
+  width: 100%;
+}
+

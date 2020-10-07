@@ -1,0 +1,6 @@
+@use '../styles/colors';
+
+.buttonBase {
+  cursor: pointer;
+  background-color: colors.$lavender;
+}
