@@ -1,0 +1,16 @@
+/*
+ * Common sass artifacts
+ */
+
+
+$contentMax: 960px;
+$contentGap: 10px;
+$idealContentWidth: ($contentMax - ( 2 * $contentGap )) / 3;
+
+
+%sandwichContent {
+  margin-left: 5px;
+  margin-right: 5px;
+  flex: 0 1 100%;
+  grid-column: 1 / -1;
+}

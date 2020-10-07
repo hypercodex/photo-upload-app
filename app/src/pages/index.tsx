@@ -1,11 +1,11 @@
 import React from 'react'
 
-const Home: React.FC = () => {
+import Home from '../components/Home' 
+
+const Index: React.FC = () => {
   return (
-    <div>
-      <h1>Welcome to File Upload App!</h1>
-    </div>
+    <Home />
   )
 }
 
-export default Home
+export default Index
