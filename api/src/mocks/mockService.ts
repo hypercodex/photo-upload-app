@@ -1,4 +1,21 @@
-const hello = 'Hello GraphQL'
-const helloGraphQL = () => hello
+import { files } from './mockData'
 
-export default { helloGraphQL }
+
+const db = {
+    collection: (anything: unknown) => ({
+        estimatedDocumentCount: () => {
+            return 42
+        },
+        find: (anything: unknown) => ({
+            toArray: () => files,
+            sort: (anything: unknown) => ({
+                project: (anything: unknown) => ({
+                    toArray: () => files
+                })
+            })
+        })
+    })
+}
+
+
+export default db
