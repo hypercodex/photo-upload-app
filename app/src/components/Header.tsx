@@ -15,7 +15,7 @@ const Header: React.FC = () => {
           Upload
         </Button>
       </div>
-      <Stats docCount={6} aggDocSize={'600kb'} />
+      <Stats count={6} aggSize={'600kb'} />
     </header>
   )
 }

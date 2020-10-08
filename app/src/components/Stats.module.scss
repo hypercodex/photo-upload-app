@@ -4,6 +4,15 @@
   display: flex;
   justify-content: space-between;
   align-items: flex-end;
+  @media (max-width: base.$mobileBreak) {
+    flex-direction: column;
+    align-items: flex-start;
+    margin-top: 4px;
+  }
+}
+
+.wrapper > div {
+  padding: 4px 0px;
 }
 
 
@@ -14,12 +23,12 @@
 }
 
 
-.docCount {
+.count {
   font-size: 2rem;
   @include fontSizeBreak(1.5rem);
 }
 
-.aggDocSize {
-  font-size: 1.5rem;
-  @include fontSizeBreak(1.15rem);
+.aggSize {
+  font-size: 1.15rem;
+  @include fontSizeBreak(1rem);
 }

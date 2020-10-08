@@ -5,7 +5,7 @@
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  padding-bottom: 0px !important;
+  padding: 0px !important;
 }
 
 .wrapper {
@@ -13,6 +13,12 @@
   justify-content: space-between;
   @media (max-width: base.$mobileBreak) {
     flex-direction: column-reverse;
+  }
+}
+
+.wrapper > * {
+  @media (max-width: base.$mobileBreak) {
+    padding: 10px 0px;
   }
 }
 

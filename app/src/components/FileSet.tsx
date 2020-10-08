@@ -1,7 +1,6 @@
 import React, { useState } from 'react'
 
-
-import style from './FileSet.module.scss'
+import File from './File'
 
 
 const FileSet: React.FC = () => {
@@ -11,7 +10,7 @@ const FileSet: React.FC = () => {
   return (
     <>
       {files.map(( val, idx ) =>
-        <div className={ style.panel } key={idx}>{ idx }</div>
+        <File key={idx} name={`Doc ${idx}`} size={`${idx}00kb`} />
       )}
     </>
   )

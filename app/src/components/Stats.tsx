@@ -3,18 +3,18 @@ import React from 'react'
 import style from './Stats.module.scss'
 
 interface StatsProps {
-  docCount: number;
-  aggDocSize: string;
+  count: number;
+  aggSize: string;
 }
 
-const Stats: React.FC<StatsProps> = ({docCount, aggDocSize}) => {
+const Stats: React.FC<StatsProps> = ({count, aggSize}) => {
   return (
     <div className={style.wrapper}>
-      <div className={style.docCount}>
-        {docCount} documents
+      <div className={style.count}>
+        {count} documents
       </div>
-      <div className={style.aggDocSize}>
-        Total size: {aggDocSize}
+      <div className={style.aggSize}>
+        Total size: {aggSize}
       </div>
     </div>
   )

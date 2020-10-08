@@ -1,0 +1,29 @@
+@use '../styles/base';
+
+
+.panel {
+  /* needed for the flex layout*/
+  margin-left: 5px;
+  margin-right: 5px;
+  flex: 1 1 base.$idealContentWidth;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+}
+
+
+.foot {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+}
+
+.size {
+  font-size: 0.8rem;
+  padding-bottom: 1px;
+}
+
+.button {
+  padding: 2px 20px;
+}
+
