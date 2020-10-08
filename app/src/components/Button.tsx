@@ -14,6 +14,7 @@ interface ButtonProps {
 const Button: React.FC<ButtonProps> = ({ children, extraClass, clickHandler }) => {
   return (
     <button
+      type='button'
       className={`${style.buttonBase} ${extraClass}`}
       onClick={clickHandler}
     >

@@ -2,6 +2,7 @@ import React from 'react'
 import { useState } from 'react'
 
 import ClientOnlyPortal from './ClientOnlyPortal'
+import ModalHead from './ModalHead'
 import Button from './Button'
 
 import style from './Modal.module.scss'
@@ -22,24 +23,8 @@ const Modal: React.FC = () => {
         <ClientOnlyPortal selector="#modal">
           <div className={ style.backdrop }>
             <div className={ style.modal }>
-              <p>
-                This modal is rendered using{' '}
-                <a
-                  href="https://reactjs.org/docs/portals.html"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  portals
-                </a>
-                .
-              </p>
-              <button type="button" onClick={() => setOpen(false)}>
-                Close Modal
-              </button>
+              <ModalHead clickHandler={() => setOpen(false)} />
             </div>
-            <style jsx>{`
-
-            `}</style>
           </div>
         </ClientOnlyPortal>
       )}
