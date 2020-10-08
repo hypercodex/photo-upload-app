@@ -5,6 +5,7 @@ enum FileType {
 }
 type File {
   id: ID!
+  ulid: String!
   url: String!
   name: String!
   kind: FileType!
@@ -14,6 +15,7 @@ type File {
 }
 input PostFileInput {
   name: String!
+  file: Upload!
   description: String
 }
 input SearchFileInput {

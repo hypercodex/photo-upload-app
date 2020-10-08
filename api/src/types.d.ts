@@ -32,6 +32,7 @@ export type File = {
 
 export type PostFileInput = {
   name: Scalars['String'];
+  file: Scalars['Upload'];
   description?: Maybe<Scalars['String']>;
 };
 
