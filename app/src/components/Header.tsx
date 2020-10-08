@@ -1,8 +1,8 @@
 import React from 'react'
 
 import Search from './Search'
-import Button from './Button'
 import Stats from './Stats'
+import Modal from './Modal'
 
 import style from './Header.module.scss'
 
@@ -11,13 +11,13 @@ const Header: React.FC = () => {
     <header className={ style.header }>
       <div className={style.wrapper} >
         <Search />
-        <Button extraClass={style.button}>
-          Upload
-        </Button>
+        <Modal />
       </div>
       <Stats count={6} aggSize={'600kb'} />
     </header>
   )
 }
+
+
 
 export default Header

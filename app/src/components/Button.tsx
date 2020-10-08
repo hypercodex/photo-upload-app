@@ -2,13 +2,21 @@ import React from 'react'
 
 import style from './Button.module.scss'
 
-interface ButtonProps {
-  extraClass?: string;
+interface Handler {
+  ():void
 }
 
-const Button: React.FC<ButtonProps> = ({ children, extraClass }) => {
+interface ButtonProps {
+  extraClass?: string;
+  clickHandler: Handler;
+}
+
+const Button: React.FC<ButtonProps> = ({ children, extraClass, clickHandler }) => {
   return (
-    <button className={`${style.buttonBase} ${extraClass}`}>
+    <button
+      className={`${style.buttonBase} ${extraClass}`}
+      onClick={clickHandler}
+    >
       { children }
     </button>
   )
