@@ -14,8 +14,8 @@ type File {
   description: String
 }
 input PostFileInput {
-  name: String!
-  file: Upload!
+  name: String
+  files: [Upload!]!
   description: String
 }
 input SearchFileInput {
@@ -27,5 +27,5 @@ type Query {
   searchFiles(input: SearchFileInput!): [File!]!
 }
 type Mutation {
-  postFile(input: PostFileInput!): File!
+  postFiles(input: PostFileInput!): File!
 }

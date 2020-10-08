@@ -4,6 +4,7 @@ import type { FileRejection } from 'react-dropzone'
 import UploadHead from './UploadHead'
 import FileDrop from './FileDrop'
 import Message from './Message'
+import UploadFiles from './UploadFiles'
 
 import style from './UploadForm.module.scss'
 
@@ -124,6 +125,7 @@ const UploadForm: React.FC<UploadFormProps> = ({handleCloseModal}) => {
     <>
       <UploadHead clickHandler={handleCloseModalClear} />
       <FileDrop handleRejectFile={handleRejectFile} handleAddFile={handleAddFile}/>
+      <UploadFiles files={filesValid.map(f => f.file)} />
       <div className={style.targets}>
         {hasValidFiles ?
           <>

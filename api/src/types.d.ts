@@ -22,6 +22,7 @@ export enum FileType {
 export type File = {
   __typename?: 'File';
   id: Scalars['ID'];
+  ulid: Scalars['String'];
   url: Scalars['String'];
   name: Scalars['String'];
   kind: FileType;
@@ -31,8 +32,8 @@ export type File = {
 };
 
 export type PostFileInput = {
-  name: Scalars['String'];
-  file: Scalars['Upload'];
+  name?: Maybe<Scalars['String']>;
+  files: Array<Scalars['Upload']>;
   description?: Maybe<Scalars['String']>;
 };
 
@@ -54,11 +55,11 @@ export type QuerySearchFilesArgs = {
 
 export type Mutation = {
   __typename?: 'Mutation';
-  postFile: File;
+  postFiles: File;
 };
 
 
-export type MutationPostFileArgs = {
+export type MutationPostFilesArgs = {
   input: PostFileInput;
 };
 
