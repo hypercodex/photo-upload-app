@@ -3,8 +3,9 @@ import React from 'react'
 import style from './Message.module.scss'
 
 interface Handler {
-  ():void
+  (): void;
 }
+
 
 interface MessageProps {
   message?: string;

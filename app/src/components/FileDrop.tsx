@@ -1,9 +1,19 @@
 import React, {useCallback} from 'react'
 import {useDropzone} from 'react-dropzone'
 
+
 import style from './FileDrop.module.scss'
 
-const FileDrop: React.FC = () => {
+interface Handler {
+  (file: Blob): void;
+}
+
+interface FileDropProps {
+  fileHandler: Handler;
+}
+
+const FileDrop: React.FC<FileDropProps> = ({ fileHandler }) => {
+  
   const onDrop = useCallback((acceptedFiles: Blob[]) => {
     acceptedFiles.forEach((file) => {
       const reader = new FileReader()
@@ -16,9 +26,11 @@ const FileDrop: React.FC = () => {
         console.log(binaryStr)
       }
       reader.readAsArrayBuffer(file)
+
+      fileHandler(file)
     })
     
-  }, [])
+  }, [fileHandler])
   const {getRootProps, getInputProps} = useDropzone({onDrop})
 
   return (

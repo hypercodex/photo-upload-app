@@ -5,7 +5,7 @@ import Button from './Button'
 import style from './ModalHead.module.scss'
 
 interface Handler {
-  ():void
+  (): void;
 }
 
 interface ModalHeadProps {
