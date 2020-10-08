@@ -23,11 +23,12 @@ export type File = {
   __typename?: 'File';
   id: Scalars['ID'];
   ulid: Scalars['String'];
+  path: Scalars['String'];
   url: Scalars['String'];
   name: Scalars['String'];
-  kind: FileType;
+  mimetype: FileType;
   size: Scalars['String'];
-  created: Scalars['DateTime'];
+  uploadedOn: Scalars['DateTime'];
   description?: Maybe<Scalars['String']>;
 };
 
@@ -53,9 +54,15 @@ export type QuerySearchFilesArgs = {
   input: SearchFileInput;
 };
 
+export type UploadMutationReponse = {
+  __typename?: 'UploadMutationReponse';
+  message?: Maybe<Scalars['String']>;
+  errors?: Maybe<Scalars['String']>;
+};
+
 export type Mutation = {
   __typename?: 'Mutation';
-  postFiles: File;
+  postFiles: Array<File>;
 };
 
 

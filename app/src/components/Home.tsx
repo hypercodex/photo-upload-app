@@ -29,7 +29,7 @@ const Home: React.FC = () => {
     <div className={ style.wrapper }>
       <Header />
       <FileSet files={data.allFiles} />
-      <Footer />
+      {/* <Footer /> */}
     </div>
   )
 } 

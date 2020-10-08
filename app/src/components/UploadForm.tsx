@@ -125,7 +125,7 @@ const UploadForm: React.FC<UploadFormProps> = ({handleCloseModal}) => {
     <>
       <UploadHead clickHandler={handleCloseModalClear} />
       <FileDrop handleRejectFile={handleRejectFile} handleAddFile={handleAddFile}/>
-      <UploadFiles files={filesValid.map(f => f.file)} />
+      <UploadFiles handleSuccess={handleCloseModalClear} files={filesValid.map(f => f.file)} />
       <div className={style.targets}>
         {hasValidFiles ?
           <>

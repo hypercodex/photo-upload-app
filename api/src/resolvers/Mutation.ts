@@ -1,11 +1,9 @@
 import path from 'path'
 import { unlink, createWriteStream, ReadStream } from 'fs'
-import { Stream } from 'stream'
 import { ulid } from 'ulid'
 import { Db } from 'mongodb'
 
 import { File, PostFileInput } from '../types'
-import uploadStream from '../lib/uploadStream'
 
 
 
@@ -43,8 +41,8 @@ const UPLOAD_DIR = path.join(
 
 const Mutation = {
   async postFiles(root: File, args: PostFileArgs, { db }: { db: Db }) {
-    for (let upload of args.input.files) {
-      console.log(upload)
+    const results = []
+    for (const upload of args.input.files) {
       const ULID = ulid() as string
       const newFile: NewFile = {
         ...args.input,
@@ -55,7 +53,6 @@ const Mutation = {
       }
  
       
-      // https://github.com/jaydenseric/apollo-upload-examples/blob/master/api/server.js
       const { createReadStream, filename, mimetype, encoding }: FileSteam = await upload;
       const id = ulid()
       const stream = createReadStream();
@@ -90,17 +87,11 @@ const Mutation = {
       // Record the file metadata in the DB.
       await db.collection('files').insertOne(file)
 
-      return file;
-
-    
+      results.push(file)
     }
-
-
-    /////////////////
-
-
+    return Promise.all(results)
+    // return {data: { message: 'Success', error: ''}}
   }
-
 }
 
 export default Mutation
