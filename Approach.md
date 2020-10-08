@@ -47,7 +47,7 @@
   - Sass  ✓
   - Webpack  ✓
   - Typescript  ✓
-6. Implement wireframe with presentational components (mobile/desktop)
+6. Implement wireframe with presentational components (mobile/desktop).  ✓
 7. Connect client to API 
 8. Determine defualt App state
 9. Implement upload functionality
