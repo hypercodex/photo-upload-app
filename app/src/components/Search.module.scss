@@ -1,3 +1,4 @@
+@use '../styles/color';
 @use '../styles/base';
 
 .searchForm {
@@ -11,5 +12,13 @@
 .searchInput {
   height: 35px;
   width: 100%;
+  background-color: color.$light; 
+  border-radius: 2px;
+  padding-left: 10px;
+  font-size: 1rem;
+}
+
+.searchInput:focus {
+  border-radius: 4px;
 }
 

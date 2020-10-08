@@ -7,13 +7,14 @@
   border: 1px solid color.$dark;
   border-radius: 3px;
   padding: 20px;
-  margin: 0px 5px;
+  margin: 0px 5px 10px 5px;
   flex: 1 1 base.$idealContentWidth;
   display: flex;
   flex-direction: column;
   justify-content: space-around;
   @media (max-width: base.$mobileBreak) {
     padding: 10px 20px;
+    margin: 0px 5px 4px 5px;
   }
 }
 

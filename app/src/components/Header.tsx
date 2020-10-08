@@ -11,7 +11,7 @@ const Header: React.FC = () => {
     <header className={ style.header }>
       <div className={style.wrapper} >
         <Search />
-        <Button extraClass={style.buttonClass}>
+        <Button extraClass={style.button}>
           Upload
         </Button>
       </div>
