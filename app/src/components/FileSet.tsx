@@ -10,11 +10,14 @@ interface FileSetProps {
 
 
 const FileSet: React.FC<FileSetProps> = ({ files }) => {
-  console.log(files)
   return (
     <>
       {!files ? '' : files.map(( val, idx ) =>
-        <File key={idx} name={`Doc ${val.name}`} size={`${idx}00kb`} />
+        <File 
+          key={idx}
+          name={`Doc ${val.name}`}
+          size={`${idx}00kb`}
+          />
       )}
     </>
   )

@@ -20,10 +20,9 @@ const ALL_FILES = gql`
 const Home: React.FC = () => {
 
   const { loading, error, data } = useQuery(ALL_FILES);
-  console.log(data)
 
-  if (loading) return <p>Loading...</p>;
-  if (error) return <p>Error :(</p>;
+  if (loading) return <p>Loading...</p>
+  if (error) return <p>Error..</p>
 
 
   return (
