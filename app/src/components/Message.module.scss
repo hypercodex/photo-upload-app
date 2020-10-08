@@ -1,0 +1,27 @@
+@use '../styles/color';
+@use '../styles/base';
+
+.wrapper {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 20px;
+  width: 60%;
+  height: 50px;
+  min-width: 300px;
+  background-color: color.$light;
+  border: 1px solid color.$dark;
+  border-radius: base.$borderRadius;
+}
+
+.message {
+  padding-left: 20px;
+  align-self: center;
+}
+
+.dismiss {
+  align-self: flex-start;
+  cursor: pointer;
+  display: block;
+  width: 1em;
+  @include base.transform(rotate(45deg));
+}
