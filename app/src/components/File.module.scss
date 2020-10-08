@@ -1,0 +1,39 @@
+@use '../styles/color';
+@use '../styles/base';
+
+
+.panel {
+  /* needed for the flex layout*/
+  border: 1px solid color.$dark;
+  border-radius: 3px;
+  padding: 20px;
+  margin: 0px 5px 10px 5px;
+  flex: 1 1 base.$idealContentWidth;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  @media (max-width: base.$mobileBreak) {
+    padding: 10px 20px;
+    margin: 0px 5px 4px 5px;
+  }
+}
+
+.name {
+  font-size: 1.5rem;
+}
+
+.foot {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+}
+
+.size {
+  // font-size: 1rem;
+  padding-bottom: 1px;
+}
+
+.button {
+  padding: 2px 20px;
+}
+

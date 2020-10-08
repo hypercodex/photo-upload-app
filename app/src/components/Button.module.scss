@@ -1,0 +1,7 @@
+@use '../styles/color';
+
+.buttonBase {
+  cursor: pointer;
+  background-color: color.$lavender;
+  border-radius: 3px;
+}

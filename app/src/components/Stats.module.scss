@@ -1,0 +1,34 @@
+@use '../styles/base';
+
+.wrapper {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  @media (max-width: base.$mobileBreak) {
+    flex-direction: column;
+    align-items: flex-start;
+    margin-top: 4px;
+  }
+}
+
+.wrapper > div {
+  padding: 4px 0px;
+}
+
+
+@mixin fontSizeBreak($fontSize) {
+  @media (min-width: base.$mobileBreak) and (max-width: 699px) {
+    font-size: $fontSize;
+  }
+}
+
+
+.count {
+  font-size: 2rem;
+  @include fontSizeBreak(1.5rem);
+}
+
+.aggSize {
+  font-size: 1.15rem;
+  @include fontSizeBreak(1rem);
+}

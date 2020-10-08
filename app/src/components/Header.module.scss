@@ -1,0 +1,34 @@
+@use '../styles/base';
+
+.header {
+  @extend %sandwichContent;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 0px !important;
+  margin-bottom: 10px;
+  @media (max-width: base.$mobileBreak) {
+    margin-bottom: 4px;
+  }
+}
+
+.wrapper {
+  display: flex;
+  justify-content: space-between;
+  @media (max-width: base.$mobileBreak) {
+    flex-direction: column-reverse;
+  }
+}
+
+.wrapper > * {
+  @media (max-width: base.$mobileBreak) {
+    padding: 10px 0px;
+  }
+}
+
+.button {
+  font-size: 1rem;
+  height: 35px;
+  text-transform: uppercase;
+  padding: 0px 45px;
+}

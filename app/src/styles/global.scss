@@ -1,0 +1,25 @@
+@use 'color';
+
+
+*,
+*:before,
+*:after {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 40px 20px;
+  font-family: 'Open Sans', 'sans-serif';
+}
+
+h1 {
+  color: color.$duskLight;
+}
+
+h1,
+p {
+  margin: 0 0 1em 0;
+}
+
+
+
