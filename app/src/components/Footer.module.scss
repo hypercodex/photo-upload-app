@@ -1,5 +1,8 @@
+@use '../styles/color';
 @use '../styles/base';
 
 .footer {
   @extend %sandwichContent;
+  border: 1px solid color.$dark;
+  border-radius: 3px;
 }

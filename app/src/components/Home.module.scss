@@ -19,16 +19,17 @@
   display: grid;
   margin: 0 auto;
   grid-template-columns: repeat(auto-fill, minmax(base.$idealContentWidth, 1fr));
-  grid-auto-rows: minmax(150px, auto);
+  grid-auto-rows: minmax(140px, auto);
+  @media (max-width: base.$mobileBreak) {
+    grid-auto-rows: minmax(120px, auto);
+  }
 }
 
 .wrapper > * {
-  background-color: #444;
-  color: #fff;
-  border-radius: 5px;
-  padding: 20px;
-  font-size: 150%;
   margin-bottom: 10px;
+  @media (max-width: base.$mobileBreak) {
+    margin-bottom: 4px;
+  }
 }
 
 

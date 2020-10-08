@@ -1,16 +1,25 @@
+@use '../styles/color';
 @use '../styles/base';
 
 
 .panel {
   /* needed for the flex layout*/
-  margin-left: 5px;
-  margin-right: 5px;
+  border: 1px solid color.$dark;
+  border-radius: 3px;
+  padding: 20px;
+  margin: 0px 5px;
   flex: 1 1 base.$idealContentWidth;
   display: flex;
   flex-direction: column;
   justify-content: space-around;
+  @media (max-width: base.$mobileBreak) {
+    padding: 10px 20px;
+  }
 }
 
+.name {
+  font-size: 1.5rem;
+}
 
 .foot {
   display: flex;
@@ -19,7 +28,7 @@
 }
 
 .size {
-  font-size: 0.8rem;
+  // font-size: 1rem;
   padding-bottom: 1px;
 }
 

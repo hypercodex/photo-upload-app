@@ -1,4 +1,4 @@
-@use 'colors';
+@use 'color';
 
 
 *,
@@ -10,12 +10,10 @@
 body {
   margin: 40px 20px;
   font-family: 'Open Sans', 'sans-serif';
-  background-color: #fff;
-  color: #444;
 }
 
 h1 {
-  color: colors.$duskLight;
+  color: color.$duskLight;
 }
 
 h1,

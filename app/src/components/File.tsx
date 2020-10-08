@@ -13,7 +13,7 @@ interface FileProps {
 const File: React.FC<FileProps> = ({name, size}) => {
   return (
     <div className={style.panel}>
-      <div>
+      <div className={style.name}>
         {name}
       </div>
       <div className={style.foot}>
