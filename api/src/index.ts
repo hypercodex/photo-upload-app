@@ -1,6 +1,7 @@
 import path from 'path'
 import { promises as fs } from 'fs'
 import express from 'express'
+import helmet from 'helmet'
 import { ApolloServer } from 'apollo-server-express'
 import expressPlaygrond from 'graphql-playground-middleware-express'
 
@@ -28,6 +29,10 @@ async function start() {
   })
 
   const app = express()
+
+  // enabling helment improves express security
+  app.use(helmet())
+
   server.applyMiddleware({ app })
 
   // handlers

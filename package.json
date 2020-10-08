@@ -9,6 +9,7 @@
     },
     "scripts": {
         "start": "",
-        "dev": "concurrently 'cd api/src/ && yarn dev' 'cd app/src && yarn dev'"
+        "dev": "concurrently 'cd api/src/ && yarn dev' 'cd app/src && yarn dev'",
+        "devAll": "concurrently 'cd api/src/ && yarn dev' 'cd app/src && yarn dev' 'docker-compose up'"
     }
 }

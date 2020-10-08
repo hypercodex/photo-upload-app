@@ -7,13 +7,36 @@
 - yarn
 - docker and docker-compose
 
-// All the instructions to run the application
+#### Install notes
+Note! (regarding secrets/envs): The distributed 'application' bundle has the secrets with correct values, as well as scrubbed `__TEMPLATE__`  secret/env files checked into the repository. If you are running the app from a Github clone, then you will need to fill the template env files  with real values and remove the string `__TEMPLATE__` from the file name before running app for first time.  
+Env files required to run app:
+- `api/.env`
+- `api/.env.json`
+
+This repository uses `yarn-workspaces`, hence there is a single yarn.lock and all dependencies can be installed by running yarn in the root directory.
+
+Run full development service environment with:
+```
+yarn devAll
+```
+
+After all docker images have been built and yarn has installed dependancies for both the `api` and `app` workspace packages, you can browse the frontend NextJS app by visiting `localhost:3000`. In addition to the main application on port:3000 There several additional services that will be running:
+- GraphQl-Playground at: `localhost:4000/playground` 
+- Mongo-Express at: `localhost:8081`
+
 
 
 ### Security
-// List security concerns:
-// - that have been addressed
-// - that have *not* been addressed
+This baseline application type (public file upload service w/o accounts, or TLS). Has a rather broad attack surface. There is no 'silver bullet' to securing such an application, as such "security by depth", is the only way to get reasonable assurances.
+
+Several noteable security features are the following: 
+- Production grade / containerized database service, with secured user that runs with less privilges.
+- Not using database IDs as public identifiers.
+- Using cryptographically random hash (ULID) appended to file names in the upload server.
+- Enabling API service (Express-Helmet) hardening library on backend graphql service.
+- Using Typescript to insure runtime has minimal errors.
+
+The following is a long list of security considerations that are relevant to this specific type of application. Some but certainlly not all of them have been implemented or are planned for future iterations and review. 
 
 #### API
 The API is a GraphQL API implemented with Apollo and Express in Node.
@@ -143,19 +166,35 @@ Application source code is a major attack vector. As such, security on developme
 
 
 ### Improvements
-// What could be added to the app / API?
+Development of this application was approached with the goal of creating a robust and production ready system. As such there a few feature that still need to be implemented, yet given the comprehensive approach taken, once features are implmented they should be rather robust and production ready. This follows a "start right stay right" strategy.
+
+Some features that still need to be developed are:
+- Frontend search query component, and debouncer.
+- Pagination
+- Click to add file meta-data
+- Persisted documents
+- Image cover and click to preview in modal.
+
 ### Libraries
-// What external libraries have you used and why?
+External libraries (excluding devDependencies):
+- Apollo (server/client): provides full featured graphql stack.
+- NextJS: production ready React scaffolding and webpack.
+- React-Dropzone: Modern hook based React libary allowing for efficient client side file handling.
+- Ulid (Universally Unique Lexicographically Sortable Idenfiers): For model entity IDs and file names.
+
+
+
 ### API
-// Any general observation about the API?
-// document each endpoint using the following template:
+This is a GraphQL api and as such has a bit of a different surface than traditional REST APIs. 
+
+There is a single endpoint:
 ```
-#### GET /resources
-// Description of the endpoint:
-// - what does the endpoint do?
-// - what does it return?
-// - does it accept specific parameters?
+#### POST /graphql
+Description of the endpoint:
+- what does the endpoint do: Entrypoint for queries and mutations against the service. 
+- what does it return?: Valid reponses per the application Schema for the Photo Upload App.
+- does it accept specific parameters?: All fields and types are documented at the schema documentation found at: http://localhost:4000/graphql
 ```
 ---
 ### Other notes
-// Anything else you want to mention
+I had fun developing this application. And I am going to take it a bit farther to get it to a 'complete spot'. The robust aproach makes it so comprehensive functionality and security will be easy to provide for once final structure is implmented.
