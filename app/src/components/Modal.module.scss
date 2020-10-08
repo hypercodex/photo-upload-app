@@ -1,3 +1,4 @@
+@use '../styles/base';
 
 .backdrop {
   position: fixed;
@@ -9,6 +10,8 @@
 }
 
 .modal {
+  overflow-y: auto;
+  overflow-x: hidden;
   background-color: white;
   position: absolute;
   top: 10%;
@@ -31,6 +34,13 @@
   height: 35px;
   text-transform: uppercase;
   padding: 0px 45px;
+}
+
+@mixin modalContent {
+  min-width: 300px;
+  @media (max-width: base.$mobileBreak) {
+    min-width: 250px
+  }
 }
 
 

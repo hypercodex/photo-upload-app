@@ -2,7 +2,7 @@ import React from 'react'
 
 import Button from './Button'
 
-import style from './ModalHead.module.scss'
+import style from './UploadHead.module.scss'
 
 interface Handler {
   (): void;
@@ -12,7 +12,7 @@ interface ModalHeadProps {
   clickHandler: Handler;
 }
 
-const ModalHead: React.FC<ModalHeadProps> = ({ clickHandler }) => {
+const UploadHead: React.FC<ModalHeadProps> = ({ clickHandler }) => {
   return (
     <div className={style.wrapper}>
       <p>
@@ -25,4 +25,4 @@ const ModalHead: React.FC<ModalHeadProps> = ({ clickHandler }) => {
   )
 }
 
-export default ModalHead
+export default UploadHead

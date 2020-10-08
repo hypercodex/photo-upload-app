@@ -1,0 +1,8 @@
+@use '../styles/base';
+@use './Modal.module.scss';
+
+.targets {
+  width: 60%;
+  height: 300px;
+  @include Modal.modalContent;
+}

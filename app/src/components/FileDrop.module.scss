@@ -1,9 +1,10 @@
 @use '../styles/color';
+@use './Modal.module.scss';
 
 
 .dropTarget {
   width: 60%;
-  min-width: 300px;
+  @include Modal.modalContent;
   padding: 0px 30px;
   display: flex;
   justify-content: center;

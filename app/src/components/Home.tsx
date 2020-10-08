@@ -21,8 +21,8 @@ const Home: React.FC = () => {
 
   const { loading, error, data } = useQuery(ALL_FILES);
 
-  if (loading) return <p>Loading...</p>
-  if (error) return <p>Error..</p>
+  if (loading) return (<p>Loading...</p>)
+  if (error) return (<p>Error...</p>)
 
 
   return (
