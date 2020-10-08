@@ -1,9 +1,10 @@
 import React from 'react'
 import { useState } from 'react'
 
+import Button from './Button'
 import ClientOnlyPortal from './ClientOnlyPortal'
 import ModalHead from './ModalHead'
-import Button from './Button'
+import FileDrop from './FileDrop'
 
 import style from './Modal.module.scss'
 
@@ -23,7 +24,10 @@ const Modal: React.FC = () => {
         <ClientOnlyPortal selector="#modal">
           <div className={ style.backdrop }>
             <div className={ style.modal }>
-              <ModalHead clickHandler={() => setOpen(false)} />
+              <div className={ style.formWrapper }>
+                <ModalHead clickHandler={() => setOpen(false)} />
+                <FileDrop />
+              </div>
             </div>
           </div>
         </ClientOnlyPortal>

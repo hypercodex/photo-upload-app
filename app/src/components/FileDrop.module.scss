@@ -1,0 +1,14 @@
+@use '../styles/color';
+
+
+.dropTarget {
+  width: 60%;
+  min-width: 300px;
+  padding: 0px 30px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 200px;
+  border: 1.5px dashed color.$dark;
+  border-radius: 3px;
+}
