@@ -5,15 +5,18 @@ enum FileType {
 }
 type File {
   id: ID!
+  ulid: String!
+  path: String!
   url: String!
   name: String!
-  kind: FileType!
+  mimetype: FileType!
   size: String!
-  created: DateTime!
+  uploadedOn: DateTime!
   description: String
 }
 input PostFileInput {
-  name: String!
+  name: String
+  files: [Upload!]!
   description: String
 }
 input SearchFileInput {
@@ -24,6 +27,10 @@ type Query {
   allFiles: [File!]!
   searchFiles(input: SearchFileInput!): [File!]!
 }
+type UploadMutationReponse {
+  message: String
+  errors: String
+}
 type Mutation {
-  postFile(input: PostFileInput!): File!
+  postFiles(input: PostFileInput!): [File!]! 
 }

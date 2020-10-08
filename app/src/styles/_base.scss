@@ -11,9 +11,41 @@ $mobileBreak: 499px;
 $tabletBreak: 830px;
 
 
+$borderRadius: 3px;
+
+
+
+
 %sandwichContent {
   margin-left: 5px;
   margin-right: 5px;
   flex: 0 1 100%;
   grid-column: 1 / -1;
 }
+
+
+/*
+ *  Common SCSS mixins and functions
+ */
+
+@mixin transform($property) {
+  -webkit-transform: $property;
+  -ms-transform: $property;
+  transform: $property;
+}
+
+
+@mixin keyframes($animation-name) {
+  @-webkit-keyframes #{$animation-name} {
+    @content;
+  }
+  @keyframes #{$animation-name} {
+    @content;
+  }
+}
+
+@mixin animation($property) {
+  -webkit-animation: $property;
+  animation: $property;
+}
+

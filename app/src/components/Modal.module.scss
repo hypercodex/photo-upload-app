@@ -1,0 +1,46 @@
+@use '../styles/base';
+
+.backdrop {
+  position: fixed;
+  background-color: rgba(0, 0, 0, 0.7);
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+}
+
+.modal {
+  overflow-y: auto;
+  overflow-x: hidden;
+  background-color: white;
+  position: absolute;
+  top: 10%;
+  right: 10%;
+  bottom: 10%;
+  left: 10%;
+  padding: 1em;
+  border-radius: 3px;
+}
+
+.formWrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+.button {
+  font-size: 1rem;
+  height: 35px;
+  text-transform: uppercase;
+  padding: 0px 45px;
+}
+
+@mixin modalContent {
+  min-width: 300px;
+  @media (max-width: base.$mobileBreak) {
+    min-width: 250px
+  }
+}
+
+

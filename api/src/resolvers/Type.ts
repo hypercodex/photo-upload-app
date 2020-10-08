@@ -4,7 +4,7 @@ import { File } from '../types'
 
 const Type = {
   File: {
-    url: ( parent: File ) => `http://localhost:4000/public/${parent.id}.${parent.kind.toLowerCase()}`,
+    url: ( parent: File ) => `http://localhost:4000/public/${parent.path}`,
   },
   DateTime: new GraphQLScalarType({
     name: 'DateTime',

@@ -1,4 +1,14 @@
 {
     "private": true,
-    "workspaces": ["api", "app"]
+    "workspaces": [
+        "api",
+        "app"
+    ],
+    "devDependencies": {
+        "concurrently": "^5.3.0"
+    },
+    "scripts": {
+        "start": "",
+        "dev": "concurrently 'cd api/src/ && yarn dev' 'cd app/src && yarn dev'"
+    }
 }

@@ -1,3 +1,4 @@
+import path from 'path'
 import { promises as fs } from 'fs'
 import express from 'express'
 import { ApolloServer } from 'apollo-server-express'
@@ -33,12 +34,18 @@ async function start() {
   app.get('/', (req, res) => res.end('Welcome to the Photo Upload API'))
   app.get('/playground', expressPlaygrond({ endpoint: '/graphql' }))
 
+  // file service
+  app.use(
+    '/uploads',
+    express.static(path.join(__dirname, 'assets', 'uploads'))
+  )
+
   app.listen(
     { port: 4000 },
     () => console.log(`GraphQL Server running @ http://localhost:4000${server.graphqlPath}`)
   )
 }
 
-start().catch(e => {
+start().catch((e: string) => {
   throw new Error(`Problem with start function: ${e}`)
 })

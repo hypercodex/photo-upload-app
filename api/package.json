@@ -31,6 +31,7 @@
     "express": "^4.17.1",
     "graphql": "^15.3.0",
     "graphql-playground-middleware-express": "^1.7.21",
-    "mongodb": "^3.6.2"
+    "mongodb": "^3.6.2",
+    "ulid": "^2.3.0"
   }
 }
