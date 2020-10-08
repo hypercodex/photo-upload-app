@@ -1,16 +1,20 @@
-import React, { useState } from 'react'
+import React from 'react'
 
 import File from './File'
 
 
-const FileSet: React.FC = () => {
 
-  const [files, setFiles] = useState(Array(7).fill())
+interface FileSetProps {
+  files: { name: string }[];
+}
 
+
+const FileSet: React.FC<FileSetProps> = ({ files }) => {
+  console.log(files)
   return (
     <>
-      {files.map(( val, idx ) =>
-        <File key={idx} name={`Doc ${idx}`} size={`${idx}00kb`} />
+      {!files ? '' : files.map(( val, idx ) =>
+        <File key={idx} name={`Doc ${val.name}`} size={`${idx}00kb`} />
       )}
     </>
   )
