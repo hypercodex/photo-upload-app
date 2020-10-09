@@ -15,10 +15,12 @@ type File {
   title: String
   description: String
 }
+input UploadPayload {
+  file: Upload!
+  size: Int!
+}
 input PostFileInput {
-  name: String
-  files: [Upload!]!
-  description: String
+  files: [UploadPayload!]!
 }
 input SearchFileInput {
   search: String!

@@ -14,6 +14,7 @@ interface CreateReadStream {
 
 type FileSteam = {
   filename: string;
+  size: number;
   mimetype: string;
   encoding: string;
   createReadStream: CreateReadStream;
@@ -27,16 +28,17 @@ const Mutation: MutationResolvers = {
   async postFiles(root, args, { db }: { db: Db }) {
     const results = []
     
-    for (const upload of args.input.files) {
+    for (const payload of args.input.files) {
 
       const ULID = ulid() as string
-      const { createReadStream, filename, mimetype, encoding }: FileSteam = await upload;
+      const { createReadStream, filename, mimetype, encoding }: FileSteam = await payload.file;
       const id = ulid()
       const stream = createReadStream();
       const path = `${UPLOAD_DIR}/${id}-${filename}`;
       const file: Partial<File> = {
         ulid: ULID,
         filename: 'test',
+        size: payload.size,
         mimetype,
         uploadedOn: new Date()
       }

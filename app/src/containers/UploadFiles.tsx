@@ -48,9 +48,9 @@ const UploadFiles: React.FC<UploadFilesProps> = ({files, handleSuccess}) => {
 
   
   const handleMutate = () => {
-    console.log(files)
     if (files && files.length > 0)  {
-      mutate({ variables: { input: { files }}}).then(res => {
+      const filesPayload = files.map(file => ({file, size: file.size}))
+      mutate({ variables: { input: { files: filesPayload }}}).then(res => {
         handleSuccess()
         // change with working cache config
         location.reload()
