@@ -3,13 +3,10 @@ import { unlink, createWriteStream, ReadStream } from 'fs'
 import { ulid } from 'ulid'
 import { Db } from 'mongodb'
 
-import { File, PostFileInput } from '../types'
+import { MutationResolvers } from './types'
+import { File } from '../types'
 
 
-
-interface PostFileArgs {
-  input: PostFileInput;
-}
 
 interface CreateReadStream {
   (): ReadStream;
@@ -22,43 +19,27 @@ type FileSteam = {
   createReadStream: CreateReadStream;
 }
 
-interface NewFile {
-  id?: string;
-  ulid: string;
-  url?: string;
-  name: string;
-  kind?: string;
-  size?: string;
-  created: Date;
-  description?: string | null | undefined;
-}
-
 const UPLOAD_DIR = path.join(
   __dirname, '../..', 'assets', 'uploads' 
 )
 
-
-
-const Mutation = {
-  async postFiles(root: File, args: PostFileArgs, { db }: { db: Db }) {
+const Mutation: MutationResolvers = {
+  async postFiles(root, args, { db }: { db: Db }) {
     const results = []
+    
     for (const upload of args.input.files) {
+
       const ULID = ulid() as string
-      const newFile: NewFile = {
-        ...args.input,
-        name: 'test',
-        id: ULID,
-        ulid: ULID,
-        created: new Date()
-      }
- 
-      
       const { createReadStream, filename, mimetype, encoding }: FileSteam = await upload;
       const id = ulid()
       const stream = createReadStream();
       const path = `${UPLOAD_DIR}/${id}-${filename}`;
-      const file = { id, filename, mimetype, path, name: 'test'};
-
+      const file: Partial<File> = {
+        ulid: ULID,
+        filename: 'test',
+        mimetype,
+        uploadedOn: new Date()
+      }
       // Store the file in the filesystem.
       await new Promise((resolve, reject) => {
         // Create a stream to which the upload will be written.
@@ -90,7 +71,6 @@ const Mutation = {
       results.push(file)
     }
     return Promise.all(results)
-    // return {data: { message: 'Success', error: ''}}
   }
 }
 

@@ -1,18 +1,39 @@
-export const files: any[] = [
+export interface ObjectStringMap {
+    [key: string]: string | number
+}
+
+export const filesInternal: ObjectStringMap[] = [
   {
     "id": "0",
-    "url": "http://localhost:4000/public/0.jpg",
-    "name": "Having Fun",
-    "created": "2020-02-05T08:00:00.000Z",
+    "ulid": "01ARZ3NDEKTSV4RRFFQ69G5FAV",
+    "url": "http://localhost:4000/public/01ARZ3NDEKTSV4RRFFQ69G5FAV.jpg",
+    "filename": "having_fun.jpg",
+    "mimetype": "image/jpg",
+    "extension": "jpg",
+    "size": 5000000,
+    "uploadedOn": "2020-02-05T08:00:00.000Z",
+    "title": "Having Fun",
     "description": "Having fun on the glacier.",
-    "kind": "JPG"
   },
   {
     "id": "1",
-    "url": "http://localhost:4000/public/1.png",
-    "name": "Having Fun 2",
-    "created": "2020-07-05T07:00:00.000Z",
+    "ulid": "000XAL6S41ACTAV9WEVGEMMVR8", 
+    "url": "http://localhost:4000/public/000XAL6S41ACTAV9WEVGEMMVR8.png",
+    "filename": "having_fun_2.png",
+    "mimetype": "image/png",
+    "extension": "png",
+    "size": 10000000,
+    "uploadedOn": "2020-07-05T07:00:00.000Z",
+    "title": "Having Fun 2",
     "description": "Having fun in the sun.",
-    "kind": "PNG"
   }
 ]
+
+const internalToFileType: ObjectStringMap = {
+    'image/jpg': 'JPG',
+    'image/png': 'PNG'
+}
+
+export const filesExternal: ObjectStringMap[] = filesInternal.map(file => {
+    return {...file, mimetype: internalToFileType[file.mimetype]}
+})

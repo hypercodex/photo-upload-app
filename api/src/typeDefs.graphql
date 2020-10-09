@@ -6,12 +6,13 @@ enum FileType {
 type File {
   id: ID!
   ulid: String!
-  path: String!
-  url: String!
-  name: String!
+  url: String! # Derived
+  filename: String!
   mimetype: FileType!
-  size: String!
+  extension: String! # Derived
+  size: Int! 
   uploadedOn: DateTime!
+  title: String
   description: String
 }
 input PostFileInput {

@@ -1,13 +1,13 @@
 import { readFileSync } from 'fs'
-import { makeExecutableSchema } from 'graphql-tools'
 import { graphql } from 'graphql'
+import { makeExecutableSchema } from 'apollo-server-express'
 
 // the actual resolvers
 import resolvers from '../resolvers'
 // mock db service
 import mockService from '../mocks/mockService'
 // mock data responses
-import { files } from '../mocks/mockData'
+import { filesExternal as files } from '../mocks/mockData'
 
 const testCaseTotal = {
   id: 'query totalFiles',
@@ -29,11 +29,15 @@ const testCaseAllFiles = {
     query {
       allFiles {
         id
+        ulid
         url
-        name
-        created
+        filename
+        mimetype
+        extension
+        size
+        uploadedOn
+        title
         description
-        kind
       }
     }
   `,
@@ -50,11 +54,15 @@ const testCaseSearchFiles = {
     query SearchFiles($input: SearchFileInput!) {
       searchFiles(input: $input) {
         id
+        ulid
         url
-        name
-        created
+        filename
+        mimetype
+        extension
+        size
+        uploadedOn
+        title
         description
-        kind
       }
     }
   `,
@@ -66,14 +74,15 @@ const testCaseSearchFiles = {
 }
 
 describe('Schema Test Cases', () => {
-  // array of all test contextases, just 1 for now
   const cases = [
       testCaseTotal,
       testCaseAllFiles,
       testCaseSearchFiles
   ]
   // reading the actual schema
-  const typeDefs = readFileSync('./typeDefs.graphql', 'utf-8')
+  const _typeDefs = readFileSync('./typeDefs.graphql', 'utf-8')
+  // workaround Apollo injecting Upload scalar in service..
+  const typeDefs = 'scalar Upload\n' + _typeDefs
   // make schema and resolvers executable
   const schema = makeExecutableSchema({ typeDefs, resolvers })
   

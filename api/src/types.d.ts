@@ -1,3 +1,5 @@
+import { EnumFileType } from './src/resolvers/EnumFileType';
+import FileType = EnumFileType;
 export type Maybe<T> = T | null;
 export type Exact<T extends { [key: string]: unknown }> = { [K in keyof T]: T[K] };
 /** All built-in and custom scalars, mapped to their actual values */
@@ -14,21 +16,19 @@ export type Scalars = {
 };
 
 
-export enum FileType {
-  Jpg = 'JPG',
-  Png = 'PNG'
-}
+export { FileType };
 
 export type File = {
   __typename?: 'File';
   id: Scalars['ID'];
   ulid: Scalars['String'];
-  path: Scalars['String'];
   url: Scalars['String'];
-  name: Scalars['String'];
+  filename: Scalars['String'];
   mimetype: FileType;
-  size: Scalars['String'];
+  extension: Scalars['String'];
+  size: Scalars['Int'];
   uploadedOn: Scalars['DateTime'];
+  title?: Maybe<Scalars['String']>;
   description?: Maybe<Scalars['String']>;
 };
 
