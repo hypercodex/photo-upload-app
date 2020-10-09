@@ -31,7 +31,7 @@ async function start() {
   const app = express()
 
   // enabling helment improves express security
-  app.use(helmet())
+  // app.use(helmet())
 
   server.applyMiddleware({ app })
 

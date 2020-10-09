@@ -7,7 +7,8 @@ const MUTATION = gql`
   mutation PostFile($input: PostFileInput!) {
     postFiles(input: $input) {
       id
-      path
+      filename
+      title
     }
   }
 `
@@ -32,7 +33,8 @@ const UploadFiles: React.FC<UploadFilesProps> = ({files, handleSuccess}) => {
               fragment: gql`
                 fragment NewFile on File {
                   id
-                  path
+                  filename
+                  title
                 }
               `
             });
