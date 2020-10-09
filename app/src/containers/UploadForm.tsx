@@ -1,10 +1,9 @@
 import React, { useState, useReducer } from 'react'
 import type { FileRejection } from 'react-dropzone'
 
+import UploadFiles from './UploadFiles'
 import FileDrop from '../components/FileDrop'
 import Message from '../components/Message'
-import UploadHead from '../components/UploadHead'
-import UploadFiles from '../components/UploadFiles'
 import UploadTargets from '../components/UploadTargets'
 
 
@@ -123,9 +122,6 @@ const UploadForm: React.FC<UploadFormProps> = ({handleCloseModal}) => {
 
   return (
     <>
-      <UploadHead
-        clickHandler={handleCloseModalClear}
-      />
       <FileDrop
         handleRejectFile={handleRejectFile}
         handleAddFile={handleAddFile}

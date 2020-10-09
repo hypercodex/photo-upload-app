@@ -23,10 +23,6 @@
 
 .dismiss {
   align-self: flex-start;
-  cursor: pointer;
-  display: block;
-  width: 1em;
-  @include base.transform(rotate(45deg));
   margin-left: 0px;
   margin-top: -10px;
 }

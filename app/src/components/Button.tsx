@@ -11,7 +11,11 @@ interface ButtonProps {
   clickHandler: Handler;
 }
 
-const Button: React.FC<ButtonProps> = ({ children, extraClass, clickHandler }) => {
+const Button: React.FC<ButtonProps> = ({
+  children,
+  extraClass,
+  clickHandler
+}) => {
   return (
     <button
       type='button'

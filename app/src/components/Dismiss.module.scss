@@ -1,0 +1,10 @@
+@use '../styles/base';
+@use '../styles/color';
+
+.dismiss {
+  color: color.$dark;
+  cursor: pointer;
+  display: block;
+  width: 1em;
+  @include base.transform(rotate(45deg));
+}

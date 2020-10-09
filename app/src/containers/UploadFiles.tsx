@@ -1,7 +1,8 @@
 import React from 'react'
 import { gql, useMutation } from '@apollo/client';
 
-import Button from './Button'
+import UploadTrigger from '../components/UploadTrigger'
+
 
 const MUTATION = gql`
   mutation PostFile($input: PostFileInput!) {
@@ -57,7 +58,7 @@ const UploadFiles: React.FC<UploadFilesProps> = ({files, handleSuccess}) => {
     }
   }
 
-  return <Button clickHandler={handleMutate}>Upload</Button>
+  return <UploadTrigger clickHandler={handleMutate}>Upload</UploadTrigger>
 }
 
 export default UploadFiles
