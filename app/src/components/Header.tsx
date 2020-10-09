@@ -13,7 +13,7 @@ const Header: React.FC = () => {
         <Search />
         <Modal />
       </div>
-      <Stats count={6} aggSize={'600kb'} />
+      <Stats />
     </header>
   )
 }
