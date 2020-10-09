@@ -53,6 +53,8 @@ const ALL_FILES = gql`
     allFiles {
       id
       filename
+      size
+      url
       title
     }
   }
@@ -67,7 +69,11 @@ const AllFileSet: React.FC = () => {
 const SEARCH_FILES = gql`
   query SearchFiles($input: SearchFileInput!) {
     searchFiles(input: $input) {
+      id
       filename
+      size
+      url
+      title
   }
 }
 `
