@@ -5,39 +5,35 @@ import React, { useMemo, useReducer } from 'react'
 
 
 interface StateInterface {
-  searchActive: boolean;
   searchQuery: string;
-  searchFiles: any[];
-  searchTotalSize: number | null;
+  fileCount: number | null;
   totalSize: number | null;
-  files: any[];
 }
 
 type Action = 
   | { type: 'SET_SEARCH', query: string } 
   | { type: 'CLEAR_SEARCH' } 
+  | { type: 'SET_STATS', count: number, size: number }
 
 
 interface ReducerInterface {
   (state: StateInterface, action: Action): StateInterface;
 }
 
-interface StateActionsFunc {
+export interface StateActionsFunc {
   (...args: any[]): void
 }
 
 interface StateActions {
   handleClearSearch: StateActionsFunc;
   handleSetSearch: StateActionsFunc;
+  setStats: StateActionsFunc;
 }
 
-const initialState: StateInterface = {
-  searchActive: false,
+export const initialState: StateInterface = {
   searchQuery: '',
-  searchFiles: [],
-  searchTotalSize: null,
+  fileCount: null,
   totalSize: null,
-  files: [],
 }
 
 export const StateContext = React.createContext<{
@@ -58,14 +54,18 @@ const StateContainer: React.FC = ({ children }) => {
       case 'SET_SEARCH':
         return {
           ...state,
-          searchActive: true,
           searchQuery: action.query
         }
       case 'CLEAR_SEARCH':
         return {
           ...state,
-          searchActive: false,
           searchQuery: '' 
+        }
+      case 'SET_STATS':
+        return {
+          ...state,
+          fileCount: action.count,
+          totalSize: action.size
         }
       default:
         throw new Error()
@@ -81,6 +81,9 @@ const StateContainer: React.FC = ({ children }) => {
       },
       handleClearSearch: () => {
         dispatch({type: 'CLEAR_SEARCH'})
+      },
+      setStats: (count: number, size: number) => {
+        dispatch({type: 'SET_STATS', count, size})
       }
     }
   }, [dispatch])

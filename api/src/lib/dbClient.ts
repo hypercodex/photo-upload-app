@@ -16,7 +16,7 @@ async function dbClient(): Promise<Db> {
     }
   )
   const db = client.db()
-  db.collection('files').createIndex({ name: "text", description: "text" })
+  db.collection('files').createIndex({ filename: "text", description: "text" })
   return db
 }
 

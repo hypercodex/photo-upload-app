@@ -9,9 +9,7 @@ import style from './Search.module.scss'
 const Search: React.FC = () => {
   const { state, stateActions } = useContext(StateContext)
   
-  
   const handleSubmit = (e: SyntheticEvent) => {
-    alert(`You submitted ${value}`)
     e.preventDefault();
   }
   
@@ -19,7 +17,6 @@ const Search: React.FC = () => {
     // @ts-ignore
     stateActions?.handleSetSearch(e.target.value)
   }
-  
   
   return (
     <form className={style.searchForm} onSubmit={handleSubmit}>

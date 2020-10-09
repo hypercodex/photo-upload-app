@@ -1,5 +1,6 @@
-import React from 'react'
+import React, { useContext } from 'react'
 
+import { StateContext } from '../containers/StateContainer'
 import style from './Stats.module.scss'
 
 interface StatsProps {
@@ -8,13 +9,14 @@ interface StatsProps {
 }
 
 const Stats: React.FC<StatsProps> = ({count, aggSize}) => {
+  const { state } = useContext(StateContext)
   return (
     <div className={style.wrapper}>
       <div className={style.count}>
-        {count} documents
+        {state.fileCount} documents
       </div>
       <div className={style.aggSize}>
-        Total size: {aggSize}
+        Total size: {state.totalSize}Mb
       </div>
     </div>
   )
