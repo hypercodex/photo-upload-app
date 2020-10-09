@@ -14,6 +14,7 @@ const Type = {
     PNG: EnumFileType.PNG 
   },
   File: {
+    id: (root: File): string => root.ulid,
     url: (root: File): string => `${FILE_SERVICE}/${ROOT_PATH}/${root.ulid}.${root.extension}`,
     extension: (root: File): string => root.mimetype.split('/')[1]
   },

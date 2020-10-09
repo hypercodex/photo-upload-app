@@ -4,7 +4,7 @@ export interface ObjectStringMap {
 
 export const filesInternal: ObjectStringMap[] = [
   {
-    "id": "0",
+    "id": "01ARZ3NDEKTSV4RRFFQ69G5FAV",
     "ulid": "01ARZ3NDEKTSV4RRFFQ69G5FAV",
     "url": "http://localhost:4000/public/01ARZ3NDEKTSV4RRFFQ69G5FAV.jpg",
     "filename": "having_fun.jpg",
@@ -16,7 +16,7 @@ export const filesInternal: ObjectStringMap[] = [
     "description": "Having fun on the glacier.",
   },
   {
-    "id": "1",
+    "id": "000XAL6S41ACTAV9WEVGEMMVR8", 
     "ulid": "000XAL6S41ACTAV9WEVGEMMVR8", 
     "url": "http://localhost:4000/public/000XAL6S41ACTAV9WEVGEMMVR8.png",
     "filename": "having_fun_2.png",

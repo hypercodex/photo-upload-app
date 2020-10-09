@@ -68,7 +68,9 @@ const Mutation: MutationResolvers = {
       // Record the file metadata in the DB.
       await db.collection('files').insertOne(file)
 
+      file.id = ULID
       results.push(file)
+
     }
     return Promise.all(results)
   }
