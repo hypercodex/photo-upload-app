@@ -11,6 +11,7 @@ import style from './Home.module.scss'
 const ALL_FILES = gql`
   query AllFiles {
     allFiles {
+      id
       filename
       title
     }
