@@ -2,14 +2,17 @@ import React from 'react'
 
 import GrapQlProvider from '../containers/GraphQlProvider'
 import StateContainer from '../containers/StateContainer'
-import Home from '../components/Home' 
+import App from '../containers/App' 
+import AppBody from '../components/AppBody'
 
 
 const Index: React.FC = () => {
   return (
     <GrapQlProvider>
       <StateContainer>
-        <Home />
+        <AppBody>
+          <App />
+        </AppBody>
       </StateContainer>
     </GrapQlProvider>
   )

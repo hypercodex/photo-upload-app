@@ -4,11 +4,10 @@ import { useQuery, gql } from '@apollo/client'
 import { StateContext } from '../containers/StateContainer'
 import type { StateActionsFunc } from '../containers/StateContainer'
 
-import Header from './Header' 
+import Header from '../components/Header' 
 /* import Footer from './Footer' */
-import FileSet from './FileSet'
+import FileSet from '../components/FileSet'
 
-import style from './Home.module.scss'
 
 
 
@@ -82,23 +81,22 @@ const SearchFileSet: React.FC<{searchQuery: string}> = ({ searchQuery }) => {
   return <QueryResult loading={loading} error={error} files={files} />
 }
 
-const Home: React.FC = () => {
+const App: React.FC = () => {
 
   const { state } = useContext(StateContext)
   const { searchQuery } = state
   const searchActive = searchQuery !== ''
 
   return (
-
-    <div className={ style.wrapper }>
+    <>
       <Header />
       {searchActive ?
         <SearchFileSet searchQuery={searchQuery} /> 
         :
         <AllFileSet />
       }
-    </div>
+    </>
   )
 } 
 
-export default Home
+export default App

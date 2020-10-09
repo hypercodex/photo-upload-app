@@ -1,10 +1,11 @@
 import React, { useState, useReducer } from 'react'
 import type { FileRejection } from 'react-dropzone'
 
-import UploadHead from './UploadHead'
-import FileDrop from './FileDrop'
-import Message from './Message'
-import UploadFiles from './UploadFiles'
+import FileDrop from '../components/FileDrop'
+import Message from '../components/Message'
+import UploadHead from '../components/UploadHead'
+import UploadFiles from '../components/UploadFiles'
+import UploadTargets from '../components/UploadTargets'
 
 
 interface Handler {
@@ -122,10 +123,23 @@ const UploadForm: React.FC<UploadFormProps> = ({handleCloseModal}) => {
 
   return (
     <>
-      <UploadHead clickHandler={handleCloseModalClear} />
-      <FileDrop handleRejectFile={handleRejectFile} handleAddFile={handleAddFile}/>
-      <UploadFiles handleSuccess={handleCloseModalClear} files={filesValid.map(f => f.file)} />
-
+      <UploadHead
+        clickHandler={handleCloseModalClear}
+      />
+      <FileDrop
+        handleRejectFile={handleRejectFile}
+        handleAddFile={handleAddFile}
+      />
+      <UploadFiles
+        handleSuccess={handleCloseModalClear}
+        files={filesValid.map(f => f.file)}
+      />
+      <UploadTargets 
+        hasValidFiles={hasValidFiles}
+        fileList={fileList}
+        hasInvalidFiles={hasInvalidFiles}
+        invalidFilesList={invalidFilesList}
+      />
     </>
   )
 }

@@ -2,8 +2,6 @@ import React, { useMemo, useReducer } from 'react'
 
 
 
-
-
 interface StateInterface {
   searchQuery: string;
   fileCount: number | null;
