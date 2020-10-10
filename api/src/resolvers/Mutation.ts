@@ -38,7 +38,6 @@ const Mutation: MutationResolvers = {
       const { createReadStream, filename, mimetype, encoding }: FileSteam = await payload.file;
       const stream = createReadStream();
       const extension = mimetype.split('/')[1]
-      console.log(extension)
       const path = getPath(extension, ULID)
       const file: Partial<File> = {
         ulid: ULID,
