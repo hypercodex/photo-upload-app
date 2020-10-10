@@ -12,15 +12,15 @@ interface Handler {
 
 
 
-const UploadTrigger: React.FC<{clickHandler: Handler}> = ({clickHandler}) => {
+const uploadtrigger: React.FC<{clickHandler: Handler}> = ({clickHandler}) => {
   return (
     <Button
       clickHandler={clickHandler}
       extraClass={style.button}
     >
-      Upload
+      upload
     </Button>
   )
 }
 
-export default UploadTrigger
+export default uploadtrigger

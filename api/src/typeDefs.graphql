@@ -25,6 +25,9 @@ input PostFileInput {
 input SearchFileInput {
   search: String!
 }
+input DeleteFileInput {
+  id: ID!
+}
 type Query {
   totalFiles: Int!
   allFiles: [File!]!
@@ -34,6 +37,10 @@ type UploadMutationReponse {
   message: String
   errors: String
 }
+type DeleteFileMutationResponse {
+  id: String
+}
 type Mutation {
   postFiles(input: PostFileInput!): [File!]! 
+  deleteFile(input: DeleteFileInput!): DeleteFileMutationResponse! 
 }

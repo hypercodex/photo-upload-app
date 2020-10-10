@@ -32,14 +32,21 @@ export type File = {
   description?: Maybe<Scalars['String']>;
 };
 
+export type UploadPayload = {
+  file: Scalars['Upload'];
+  size: Scalars['Int'];
+};
+
 export type PostFileInput = {
-  name?: Maybe<Scalars['String']>;
-  files: Array<Scalars['Upload']>;
-  description?: Maybe<Scalars['String']>;
+  files: Array<UploadPayload>;
 };
 
 export type SearchFileInput = {
   search: Scalars['String'];
+};
+
+export type DeleteFileInput = {
+  id: Scalars['ID'];
 };
 
 export type Query = {
@@ -63,11 +70,17 @@ export type UploadMutationReponse = {
 export type Mutation = {
   __typename?: 'Mutation';
   postFiles: Array<File>;
+  deleteFile: File;
 };
 
 
 export type MutationPostFilesArgs = {
   input: PostFileInput;
+};
+
+
+export type MutationDeleteFileArgs = {
+  input: DeleteFileInput;
 };
 
 export enum CacheControlScope {

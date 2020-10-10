@@ -20,6 +20,7 @@ const FileSet: React.FC<FileSetProps> = ({ files }) => {
       {!files ? '' : files.map(( file, idx ) =>
         <File 
           key={idx}
+          id={file.id}
           name={`Doc ${++idx}`}
           size={toKilobytes(file.size)}
           />

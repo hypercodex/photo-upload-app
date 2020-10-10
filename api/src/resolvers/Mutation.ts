@@ -24,6 +24,10 @@ const UPLOAD_DIR = path.join(
   __dirname, '../..', 'assets', 'uploads' 
 )
 
+const getPath = (extension: string, id: string): string => {
+  return `${UPLOAD_DIR}/${id}.${extension}`
+}
+
 const Mutation: MutationResolvers = {
   async postFiles(root, args, { db }: { db: Db }) {
     const results = []
@@ -32,9 +36,10 @@ const Mutation: MutationResolvers = {
 
       const ULID = ulid() as string
       const { createReadStream, filename, mimetype, encoding }: FileSteam = await payload.file;
-      const id = ulid()
       const stream = createReadStream();
-      const path = `${UPLOAD_DIR}/${id}-${filename}`;
+      const extension = mimetype.split('/')[1]
+      console.log(extension)
+      const path = getPath(extension, ULID)
       const file: Partial<File> = {
         ulid: ULID,
         filename: 'test',
@@ -67,14 +72,37 @@ const Mutation: MutationResolvers = {
         stream.pipe(writeStream);
       });
 
+      file.id = ULID
       // Record the file metadata in the DB.
       await db.collection('files').insertOne(file)
 
-      file.id = ULID
       results.push(file)
 
     }
     return Promise.all(results)
+  },
+  async deleteFile(root, args, { db }: { db: Db }) {
+    return new Promise((resolve, reject) => {
+      db.collection('files')
+        .findOneAndDelete(
+          { ulid: args.input.id },
+          (err:any, result:any) => {
+            if (err) {
+              reject(err)
+            }
+            const file = result.value
+            const extension = file.mimetype.split('/')[1]
+            const path = getPath(extension, file.ulid)
+
+            unlink(path, (err) => {
+              if (err) {
+                reject(err)
+              }
+              resolve(file.id)
+            })
+        }
+      )
+    })
   }
 }
 

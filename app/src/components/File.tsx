@@ -1,16 +1,17 @@
 import React from 'react'
 
-import Button from './Button'
+import DeleteFile from '../containers/DeleteFile' 
 
 import style from './File.module.scss'
 
 interface FileProps {
+  id: string;
   name: string;
   size: string;
 }
 
 
-const File: React.FC<FileProps> = ({name, size}) => {
+const File: React.FC<FileProps> = ({id, name, size}) => {
   return (
     <div className={style.panel}>
       <div className={style.name}>
@@ -20,9 +21,7 @@ const File: React.FC<FileProps> = ({name, size}) => {
         <div className={style.size}>
           {size}
         </div>
-        <Button extraClass={style.button}>
-          delete
-        </Button>
+        <DeleteFile fileId={id} extraClass={style.button} />
       </div>
     </div>
   )

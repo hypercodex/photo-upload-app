@@ -36,14 +36,21 @@ export type File = {
   description?: Maybe<Scalars['String']>;
 };
 
+export type UploadPayload = {
+  file: Scalars['Upload'];
+  size: Scalars['Int'];
+};
+
 export type PostFileInput = {
-  name?: Maybe<Scalars['String']>;
-  files: Array<Scalars['Upload']>;
-  description?: Maybe<Scalars['String']>;
+  files: Array<UploadPayload>;
 };
 
 export type SearchFileInput = {
   search: Scalars['String'];
+};
+
+export type DeleteFileInput = {
+  id: Scalars['ID'];
 };
 
 export type Query = {
@@ -67,11 +74,17 @@ export type UploadMutationReponse = {
 export type Mutation = {
   __typename?: 'Mutation';
   postFiles: Array<File>;
+  deleteFile: File;
 };
 
 
 export type MutationPostFilesArgs = {
   input: PostFileInput;
+};
+
+
+export type MutationDeleteFileArgs = {
+  input: DeleteFileInput;
 };
 
 export enum CacheControlScope {
@@ -165,8 +178,10 @@ export type ResolversTypes = ResolversObject<{
   ID: ResolverTypeWrapper<Partial<Scalars['ID']>>;
   String: ResolverTypeWrapper<Partial<Scalars['String']>>;
   Int: ResolverTypeWrapper<Partial<Scalars['Int']>>;
+  UploadPayload: ResolverTypeWrapper<Partial<UploadPayload>>;
   PostFileInput: ResolverTypeWrapper<Partial<PostFileInput>>;
   SearchFileInput: ResolverTypeWrapper<Partial<SearchFileInput>>;
+  DeleteFileInput: ResolverTypeWrapper<Partial<DeleteFileInput>>;
   Query: ResolverTypeWrapper<{}>;
   UploadMutationReponse: ResolverTypeWrapper<Partial<UploadMutationReponse>>;
   Mutation: ResolverTypeWrapper<{}>;
@@ -182,8 +197,10 @@ export type ResolversParentTypes = ResolversObject<{
   ID: Partial<Scalars['ID']>;
   String: Partial<Scalars['String']>;
   Int: Partial<Scalars['Int']>;
+  UploadPayload: Partial<UploadPayload>;
   PostFileInput: Partial<PostFileInput>;
   SearchFileInput: Partial<SearchFileInput>;
+  DeleteFileInput: Partial<DeleteFileInput>;
   Query: {};
   UploadMutationReponse: Partial<UploadMutationReponse>;
   Mutation: {};
@@ -225,6 +242,7 @@ export type UploadMutationReponseResolvers<ContextType = any, ParentType extends
 
 export type MutationResolvers<ContextType = any, ParentType extends ResolversParentTypes['Mutation'] = ResolversParentTypes['Mutation']> = ResolversObject<{
   postFiles?: Resolver<Array<ResolversTypes['File']>, ParentType, ContextType, RequireFields<MutationPostFilesArgs, 'input'>>;
+  deleteFile?: Resolver<ResolversTypes['File'], ParentType, ContextType, RequireFields<MutationDeleteFileArgs, 'input'>>;
 }>;
 
 export interface UploadScalarConfig extends GraphQLScalarTypeConfig<ResolversTypes['Upload'], any> {
