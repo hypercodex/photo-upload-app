@@ -13,7 +13,7 @@ interface FileProps {
   size: string;
 }
 
-const File: React.FC<FileProps> = ({id, name, size}) => {
+const File: React.FC<FileProps> = React.memo(({id, name, size}) => {
   const { handleDelete, refetch } = useContext(GraphQLContext)
   const clickHandler = () => {
     handleDelete(id)
@@ -37,6 +37,8 @@ const File: React.FC<FileProps> = ({id, name, size}) => {
       </div>
     </div>
   )
-}
+})
+
+File.displayName = 'File'
 
 export default File
