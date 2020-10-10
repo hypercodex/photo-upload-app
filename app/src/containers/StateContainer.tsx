@@ -1,7 +1,6 @@
 import React, { useMemo, useReducer } from 'react'
 
 
-
 interface StateInterface {
   searchQuery: string;
   fileCount: number | null;
@@ -13,19 +12,18 @@ type Action =
   | { type: 'CLEAR_SEARCH' } 
   | { type: 'SET_STATS', count: number, size: number }
 
-
 interface ReducerInterface {
   (state: StateInterface, action: Action): StateInterface;
 }
 
-export interface StateActionsFunc {
-  (...args: any[]): void
-}
+export type HandleClearSearc = () => void;
+export type HandleSetSearch = (query: string) => void;
+export type SetStats = (count: number, size: number) => void;
 
 interface StateActions {
-  handleClearSearch: StateActionsFunc;
-  handleSetSearch: StateActionsFunc;
-  setStats: StateActionsFunc;
+  handleClearSearch: HandleClearSearc;
+  handleSetSearch: HandleSetSearch;
+  setStats: SetStats;
 }
 
 export const initialState: StateInterface = {
@@ -36,16 +34,19 @@ export const initialState: StateInterface = {
 
 export const StateContext = React.createContext<{
   state: StateInterface;
-  dispatch: React.Dispatch<any>;
-  stateActions?: StateActions 
+  dispatch: React.Dispatch<Action>;
+  stateActions: StateActions 
 }>({
   state: initialState,
   dispatch: () => null,
-  stateActions: undefined
+  stateActions: {
+      handleSetSearch: () => null,
+      handleClearSearch: () => null,
+      setStats: () => null 
+  }
 })
 
 const StateContainer: React.FC = ({ children }) => {
-
 
   const reducer: ReducerInterface = (state, action) => {
     switch (action.type) {
@@ -85,7 +86,6 @@ const StateContainer: React.FC = ({ children }) => {
       }
     }
   }, [dispatch])
-
 
   const contextValue = useMemo(() => {
     return {
