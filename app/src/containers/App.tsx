@@ -49,7 +49,6 @@ const QueryResult: React.FC<QueryResultProps> = ({
 const ALL_FILES = gql`
   query AllFiles {
     allFiles {
-      __typename
       id
       filename
       size
@@ -62,7 +61,6 @@ const ALL_FILES = gql`
 const SEARCH_FILES = gql`
   query SearchFiles($input: SearchFileInput!) {
     searchFiles(input: $input) {
-      __typename
       id
       filename
       size
@@ -129,8 +127,15 @@ const App: React.FC = () => {
   const searchActive = searchQuery !== ''
 
   const [refetch, setRefetch] = useState(() => () => null)
-  const [mutate] = useMutation(MUTATION)
+  const [mutate] = useMutation(MUTATION, {
+    update(cache, { data: { deleteFile } }) {
+      cache.evict({
+        id: cache.identify(deleteFile),
+      });
+    }
+  })
 
+  /* const [mutate] = useMutation(MUTATION, { }) */
   const contextValue = useMemo(() => {
     return {
       handleDelete: (fileId: string) => {

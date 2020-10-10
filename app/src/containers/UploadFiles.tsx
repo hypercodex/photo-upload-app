@@ -39,10 +39,7 @@ const UploadFiles: React.FC<UploadFilesProps> = ({files, handleSuccess}) => {
               data: postFiles,
               fragment: gql`
                 fragment NewFile on File {
-                  __typename
                   id
-                  filename
-                  title
                 }
               `
             });
