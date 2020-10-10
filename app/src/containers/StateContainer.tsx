@@ -16,14 +16,14 @@ interface ReducerInterface {
   (state: StateInterface, action: Action): StateInterface;
 }
 
-export type HandleClearSearc = () => void;
-export type HandleSetSearch = (query: string) => void;
-export type SetStats = (count: number, size: number) => void;
+export type ClearSearchAction = () => void;
+export type SetSearchAction = (query: string) => void;
+export type SetStatsAction = (count: number, size: number) => void;
 
 interface StateActions {
-  handleClearSearch: HandleClearSearc;
-  handleSetSearch: HandleSetSearch;
-  setStats: SetStats;
+  handleClearSearch: ClearSearchAction;
+  handleSetSearch: SetSearchAction;
+  setStats: SetStatsAction;
 }
 
 export const initialState: StateInterface = {

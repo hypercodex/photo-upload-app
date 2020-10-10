@@ -1,8 +1,11 @@
-import React from 'react'
+import React, { useContext } from 'react'
 
-import DeleteFile from '../containers/DeleteFile' 
+import { GraphQLContext } from '../containers/App'
+
+import Button from './Button'
 
 import style from './File.module.scss'
+
 
 interface FileProps {
   id: string;
@@ -10,8 +13,12 @@ interface FileProps {
   size: string;
 }
 
-
 const File: React.FC<FileProps> = ({id, name, size}) => {
+  const { handleDelete, refetch } = useContext(GraphQLContext)
+  const clickHandler = () => {
+    handleDelete(id)
+    refetch()
+  } 
   return (
     <div className={style.panel}>
       <div className={style.name}>
@@ -21,7 +28,12 @@ const File: React.FC<FileProps> = ({id, name, size}) => {
         <div className={style.size}>
           {size}
         </div>
-        <DeleteFile fileId={id} extraClass={style.button} />
+        <Button
+          clickHandler={clickHandler}
+          extraClass={style.button}
+        >
+          Delete
+        </Button>
       </div>
     </div>
   )

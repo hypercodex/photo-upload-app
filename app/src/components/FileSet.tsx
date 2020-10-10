@@ -2,16 +2,13 @@ import React from 'react'
 
 import type { File as FileInterface } from '../../../api/src/types'
 
+import { toKilobytes } from '../lib'
 import File from './File'
 
 
 
 interface FileSetProps {
   files: FileInterface[];
-}
-
-const toKilobytes = (bytes: number) => {
-  return `${Math.round(bytes/1000).toString()}kb`
 }
 
 const FileSet: React.FC<FileSetProps> = ({ files }) => {

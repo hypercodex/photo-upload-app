@@ -1,46 +1,38 @@
-import React, { useContext, useEffect } from 'react'
-import { useQuery, gql } from '@apollo/client'
+import React, { useContext, useEffect, useMemo, useState } from 'react'
+import { gql, useQuery, useMutation} from '@apollo/client'
 
-import { StateContext } from '../containers/StateContainer'
-import type { StateActionsFunc } from '../containers/StateContainer'
 import type { File } from '../../../api/src/types'
-
+import { computeFileStats } from '../lib'
+import { StateContext } from '../containers/StateContainer'
 import Header from '../components/Header' 
-/* import Footer from './Footer' */
 import FileSet from '../components/FileSet'
 
 
+/* import Footer from '../components/Footer' */
 
 
-interface SetFileStatsInterface {
-  (
-    files: File[],
-    setStatAction: StateActionsFunc
-  ): void
-}
-
-const computeFileStats: SetFileStatsInterface = (
-  files,
-  setStatAction
-) => {
-  if (!files) return
-  const totalSize = files.reduce((a: number, v: File) => {
-    return a + v.size
-  }, 0)
-  setStatAction(files.length, totalSize)
-}
+type Refetch = () => void
 
 interface QueryResultProps {
   loading: boolean;
   error: any;
   files: File[];
+  refetch: Refetch; 
 }
 
-const QueryResult: React.FC<QueryResultProps> = ({loading, error, files}) => {
+const QueryResult: React.FC<QueryResultProps> = ({
+  loading,
+  error,
+  files,
+  refetch
+}) => {
   const { stateActions } = useContext(StateContext)
+  const { setRefetch } = useContext(GraphQLContext)
+  
   useEffect(() => {
-    computeFileStats(files, stateActions?.setStats)
-  }, [files, stateActions?.setStats])
+    setRefetch(() => refetch)
+    computeFileStats(files, stateActions.setStats)
+  }, [setRefetch, refetch, files, stateActions.setStats])
 
   return (
     <>
@@ -67,12 +59,6 @@ const ALL_FILES = gql`
   }
 `
 
-const AllFileSet: React.FC = () => {
-  const { loading, error, data, refetch } = useQuery(ALL_FILES, { })
-  const files = data?.allFiles
-  return <QueryResult loading={loading} error={error} files={files} />
-}
-
 const SEARCH_FILES = gql`
   query SearchFiles($input: SearchFileInput!) {
     searchFiles(input: $input) {
@@ -86,28 +72,86 @@ const SEARCH_FILES = gql`
 }
 `
 
+const MUTATION = gql`
+  mutation DeleteFile($input: DeleteFileInput!) {
+    deleteFile(input: $input) {
+      id
+    }
+  }
+`
+
+const AllFileSet: React.FC = () => {
+  const { loading, error, data, refetch } = useQuery(ALL_FILES)
+  const files = data?.allFiles
+  return (
+    <QueryResult
+      loading={loading}
+      error={error}
+      files={files}
+      refetch={refetch}
+      />
+  )
+}
+
 const SearchFileSet: React.FC<{searchQuery: string}> = ({ searchQuery }) => {
-  const { loading, error, data } = useQuery(SEARCH_FILES, {
+  const { loading, error, data, refetch } = useQuery(SEARCH_FILES, {
     variables: { input: { search: searchQuery } },
   });
   const files = data?.searchFiles
-  return <QueryResult loading={loading} error={error} files={files} />
+  return (
+    <QueryResult
+      loading={loading}
+      error={error}
+      files={files}
+      refetch={refetch}
+      />
+  )
 }
 
-const App: React.FC = () => {
+interface MutateHandler {
+  (fileId: string): void;
+}
 
+export const GraphQLContext = React.createContext<{
+  handleDelete: MutateHandler;
+  refetch: Refetch;
+  setRefetch: React.SetStateAction<any>;
+}>({
+  handleDelete: () => null,
+  refetch: () => null,
+  setRefetch: () => null
+})
+
+const App: React.FC = () => {
+  
   const { state } = useContext(StateContext)
   const { searchQuery } = state
   const searchActive = searchQuery !== ''
 
+  const [refetch, setRefetch] = useState(() => () => null)
+  const [mutate] = useMutation(MUTATION)
+
+  const contextValue = useMemo(() => {
+    return {
+      handleDelete: (fileId: string) => {
+        mutate({ variables: { input: { id: fileId }}})
+      },
+      refetch,
+      setRefetch
+    }
+  }, [mutate, refetch])
+
   return (
     <>
-      <Header />
-      {searchActive ?
-        <SearchFileSet searchQuery={searchQuery} /> 
-        :
-        <AllFileSet />
-      }
+      <GraphQLContext.Provider value={contextValue}>
+        <Header />
+        {searchActive ?
+          <SearchFileSet searchQuery={searchQuery} /> 
+          :
+          <AllFileSet />
+        }
+        {/* <Footer /> */}
+      </GraphQLContext.Provider>
     </>
   )
 } 
