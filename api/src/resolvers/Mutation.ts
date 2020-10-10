@@ -98,7 +98,7 @@ const Mutation: MutationResolvers = {
               if (err) {
                 reject(err)
               }
-              resolve(file.id)
+              resolve({id: file.id})
             })
         }
       )

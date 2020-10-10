@@ -38,7 +38,7 @@ type UploadMutationReponse {
   errors: String
 }
 type DeleteFileMutationResponse {
-  id: String
+  id: ID!
 }
 type Mutation {
   postFiles(input: PostFileInput!): [File!]! 

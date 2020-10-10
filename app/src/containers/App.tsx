@@ -51,6 +51,7 @@ const QueryResult: React.FC<QueryResultProps> = ({loading, error, files}) => {
 const ALL_FILES = gql`
   query AllFiles {
     allFiles {
+      __typename
       id
       filename
       size
@@ -61,7 +62,9 @@ const ALL_FILES = gql`
 `
 
 const AllFileSet: React.FC = () => {
-  const { loading, error, data } = useQuery(ALL_FILES)
+  const { loading, error, data } = useQuery(ALL_FILES, {
+    pollInterval: 500,
+  })
   const files = data?.allFiles
   return <QueryResult loading={loading} error={error} files={files} />
 }
@@ -69,6 +72,7 @@ const AllFileSet: React.FC = () => {
 const SEARCH_FILES = gql`
   query SearchFiles($input: SearchFileInput!) {
     searchFiles(input: $input) {
+      __typename
       id
       filename
       size
@@ -79,10 +83,9 @@ const SEARCH_FILES = gql`
 `
 
 const SearchFileSet: React.FC<{searchQuery: string}> = ({ searchQuery }) => {
-  const { loading, error, data } = useQuery(
-    SEARCH_FILES,
-    { variables: { input: { search: searchQuery } } }
-  );
+  const { loading, error, data } = useQuery(SEARCH_FILES, {
+    variables: { input: { search: searchQuery } },
+  });
   const files = data?.searchFiles
   return <QueryResult loading={loading} error={error} files={files} />
 }

@@ -23,10 +23,7 @@ const DeleteFile: React.FC<UploadFilesProps> = ({fileId, extraClass, children}) 
 
   
   const handleMutate = () => {
-    mutate({ variables: { input: { id: fileId }}}).then(res => {
-      // change with working cache config... or needs to be wrapped in useCallback
-      location.reload()
-    })
+    mutate({ variables: { input: { id: fileId }}})
   }
 
   return <DeleteTrigger clickHandler={handleMutate} extraClass={extraClass} />

@@ -7,6 +7,7 @@ import UploadTrigger from '../components/UploadTrigger'
 const MUTATION = gql`
   mutation PostFile($input: PostFileInput!) {
     postFiles(input: $input) {
+      __typename
       id
       filename
       title
@@ -33,6 +34,7 @@ const UploadFiles: React.FC<UploadFilesProps> = ({files, handleSuccess}) => {
               data: postFiles,
               fragment: gql`
                 fragment NewFile on File {
+                  __typename
                   id
                   filename
                   title
@@ -52,8 +54,6 @@ const UploadFiles: React.FC<UploadFilesProps> = ({files, handleSuccess}) => {
       const filesPayload = files.map(file => ({file, size: file.size}))
       mutate({ variables: { input: { files: filesPayload }}}).then(res => {
         handleSuccess()
-        // change with working cache config
-        location.reload()
       })
     }
   }
