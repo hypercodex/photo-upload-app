@@ -1,5 +1,7 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import { gql, useMutation } from '@apollo/client';
+
+import { GraphQLContext } from '../containers/App'
 
 import UploadTrigger from '../components/UploadTrigger'
 
@@ -25,6 +27,9 @@ interface UploadFilesProps {
 }
 
 const UploadFiles: React.FC<UploadFilesProps> = ({files, handleSuccess}) => {
+  
+  const { handleDelete, refetch } = useContext(GraphQLContext)
+
   const [mutate] = useMutation(MUTATION, {
     update(cache, { data: { postFiles } }) {
       cache.modify({
@@ -53,7 +58,10 @@ const UploadFiles: React.FC<UploadFilesProps> = ({files, handleSuccess}) => {
     if (files && files.length > 0)  {
       const filesPayload = files.map(file => ({file, size: file.size}))
       mutate({ variables: { input: { files: filesPayload }}}).then(res => {
+
         handleSuccess()
+        refetch()
+
       })
     }
   }
