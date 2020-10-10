@@ -7,7 +7,6 @@ import { StateContext } from '../containers/StateContainer'
 import Header from '../components/Header' 
 import FileSet from '../components/FileSet'
 
-
 /* import Footer from '../components/Footer' */
 
 
@@ -79,7 +78,11 @@ const MUTATION = gql`
 `
 
 const AllFileSet: React.FC = () => {
-  const { loading, error, data, refetch } = useQuery(ALL_FILES)
+  const { loading, error, data, refetch } = useQuery(
+    ALL_FILES, {
+      fetchPolicy: 'cache-and-network'
+    }
+  )
   const files = data?.allFiles
   return (
     <QueryResult
@@ -94,6 +97,7 @@ const AllFileSet: React.FC = () => {
 const SearchFileSet: React.FC<{searchQuery: string}> = ({ searchQuery }) => {
   const { loading, error, data, refetch } = useQuery(SEARCH_FILES, {
     variables: { input: { search: searchQuery } },
+    fetchPolicy: 'network-only'
   });
   const files = data?.searchFiles
   return (
@@ -127,15 +131,8 @@ const App: React.FC = () => {
   const searchActive = searchQuery !== ''
 
   const [refetch, setRefetch] = useState(() => () => null)
-  const [mutate] = useMutation(MUTATION, {
-    update(cache, { data: { deleteFile } }) {
-      cache.evict({
-        id: cache.identify(deleteFile),
-      });
-    }
-  })
+  const [mutate] = useMutation(MUTATION)
 
-  /* const [mutate] = useMutation(MUTATION, { }) */
   const contextValue = useMemo(() => {
     return {
       handleDelete: (fileId: string) => {

@@ -2,7 +2,7 @@ import React from 'react';
 import {
   ApolloClient,
   InMemoryCache,
-  ApolloProvider
+  ApolloProvider,
 } from '@apollo/client';
 import { createUploadLink } from "apollo-upload-client";
 
@@ -15,7 +15,9 @@ const httpLink = createUploadLink({
 
 const client = new ApolloClient({
   link: httpLink,
-  cache: new InMemoryCache()
+  cache: new InMemoryCache({
+    addTypename: false
+  })
 });
 
 
