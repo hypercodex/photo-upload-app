@@ -29,23 +29,17 @@ $borderRadius: 3px;
  */
 
 @mixin transform($property) {
-  -webkit-transform: $property;
-  -ms-transform: $property;
   transform: $property;
 }
 
 
 @mixin keyframes($animation-name) {
-  @-webkit-keyframes #{$animation-name} {
-    @content;
-  }
   @keyframes #{$animation-name} {
     @content;
   }
 }
 
 @mixin animation($property) {
-  -webkit-animation: $property;
   animation: $property;
 }
 

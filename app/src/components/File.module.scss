@@ -16,10 +16,38 @@
   }
 }
 
-.name {
+
+// Styling for Outset Component
+.outsetWrap {
+  display: flex;
   z-index: 10;
-  font-size: 1.5rem;
 }
+
+@mixin outsetOrient($orient, $x, $y, $fontSize) {
+  padding: $y $x;
+  @if $orient == 'top' {
+    margin-left: -$x;
+    margin-top: -$y;
+  } @else {
+    margin-left: -$x;
+    margin-bottom: -$y;
+  }
+  font-size: $fontSize;
+  // backdrop filter still not completely supported, but soon..
+  backdrop-filter: blur(3px);
+  background-color: scale-color(color.$light, $alpha: -50%);
+  border-radius: base.$borderRadius;
+  box-shadow: 2px 2px 2px 1px color.$shadow;
+}
+
+.topOutset {
+  @include outsetOrient('top', 4px, 1px, 1.5em);
+}
+
+.bottomOutset {
+  @include outsetOrient('bottom', 4px, 1px, 1em);
+}
+////////////////////////////
 
 .image {
   position: absolute;
@@ -31,14 +59,23 @@
 .overlay {
   height: 100%;
   width: 100%;
-  position: relative;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  padding: 15px ;
+  padding: 15px;
   @media (max-width: base.$mobileBreak) {
     padding: 10px 20px;
   }
+}
+
+.underlay {
+  opacity: 60%;
+  width: 100%;
+  height: 100%;
+  background-color: mix(color.$light, color.$dark, $weight: 90%);
+  margin-top: -15px;
+  margin-left: -15px;
+  position: absolute;
 }
 
 .foot {
@@ -49,7 +86,6 @@
 }
 
 .size {
-  // font-size: 1rem;
   padding-bottom: 1px;
 }
 
