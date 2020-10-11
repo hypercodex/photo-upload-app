@@ -20,7 +20,7 @@
 // Styling for Outset Component
 .outsetWrap {
   display: flex;
-  z-index: 10;
+  z-index: 1;
 }
 
 @mixin outsetOrient($orient, $x, $y, $fontSize) {
@@ -79,7 +79,7 @@
 }
 
 .foot {
-  z-index: 10;
+  z-index: 1;
   display: flex;
   justify-content: space-between;
   align-items: flex-end;

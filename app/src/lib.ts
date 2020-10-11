@@ -43,3 +43,4 @@ export const computeFileStats: SetFileStatsInterface = (
   }, 0)
   setStatsAction(files.length, totalSize)
 }
+

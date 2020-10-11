@@ -3,11 +3,16 @@ import React from 'react'
 import style from './UploadTargets.module.scss'
 
 
-const UploadTargets: React.FC<any> = ({
+const UploadTargets: React.FC<{
+  hasValidFiles: boolean;
+  fileList: JSX.Element[];
+  hasInvalidFiles: boolean;
+  invalidFiles: JSX.Element[]
+}> = ({
   hasValidFiles,
   fileList,
   hasInvalidFiles,
-  invalidFilesList
+  invalidFiles
 }) => {
   return (
     <div className={style.targets}>
@@ -20,7 +25,7 @@ const UploadTargets: React.FC<any> = ({
       {hasInvalidFiles ?
         <>
           <h4>File Errors</h4>
-          {invalidFilesList}
+          {invalidFiles}
         </>
         : null }
     </div>

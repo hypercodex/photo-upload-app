@@ -28,7 +28,7 @@ interface UploadFilesProps {
 
 const UploadFiles: React.FC<UploadFilesProps> = ({files, handleSuccess}) => {
   
-  const { handleDelete, refetch } = useContext(GraphQLContext)
+  const {  refetch } = useContext(GraphQLContext)
 
   const [mutate] = useMutation(MUTATION, {
     update(cache, { data: { postFiles } }) {
@@ -55,11 +55,9 @@ const UploadFiles: React.FC<UploadFilesProps> = ({files, handleSuccess}) => {
   const handleMutate = () => {
     if (files && files.length > 0)  {
       const filesPayload = files.map(file => ({file, size: file.size}))
-      mutate({ variables: { input: { files: filesPayload }}}).then(res => {
-
+      mutate({ variables: { input: { files: filesPayload }}}).then(() => {
         handleSuccess()
         refetch()
-
       })
     }
   }

@@ -5,65 +5,79 @@ import UploadFiles from './UploadFiles'
 import FileDrop from '../components/FileDrop'
 import Message from '../components/Message'
 import UploadTargets from '../components/UploadTargets'
+import { toKilobytes } from '../lib'
 
 
 interface Handler {
   (): void;
 }
 
-interface UploadFormProps {
-  handleCloseModal: Handler;
+
+interface UploadState {
+  acceptFiles: File[]; 
+  rejectMessage: (string | undefined)[]; 
+  rejectFiles: FileRejection[];
 }
 
-interface FileState {
-  file: File,
-  message: string;
-  valid: boolean;
-}
+type Action =
+  | { type: 'ADD_FILE', file: File } 
+  | { type: 'REJECT_FILE', file: FileRejection, message: string } 
+  | { type: 'CLEAR_REJECTED_FILE', index: number } 
+  | { type: 'CLEAR' }
 
-type Action = {
-  type: 'ADD_FILE',
-  file: File
-} | {
-  type: 'REJECT_FILE',
-  file: FileRejection,
-  message: string 
-} | {
-  type: 'CLEAR_FILE',
-  index: number
-} | {
-  type: 'CLEAR'
-}
 
 interface ReducerInterface {
-  (state: FileState[], action: Action): FileState[]
+  (
+    state: UploadState,
+    action: Action
+  ): UploadState 
 }
 
-const UploadForm: React.FC<UploadFormProps> = ({handleCloseModal}) => {
+const UploadForm: React.FC<{handleCloseModal: Handler}> = ({handleCloseModal}) => {
 
-  const initialState: FileState[] = []
+  const initialState: UploadState = {
+    acceptFiles: [],
+    rejectMessage: [],
+    rejectFiles: []
+  }
 
-  // @ts-ignore
   const reducer: ReducerInterface = (state, action) => {
     switch (action.type) {
       case 'ADD_FILE':
-        return [
+        return {
           ...state,
-        {file: action.file, message: '', valid: true}
-       ]
+          acceptFiles: [...state.acceptFiles, action.file],
+          rejectMessage: [...state.rejectMessage],
+          rejectFiles: [...state.rejectFiles]
+        }
       case 'REJECT_FILE':
-        return [
+        return {
           ...state,
-        {file: action.file, message: action.message, valid: false}
-       ]
-      case 'CLEAR_FILE':
-        return state.filter((item: FileState, index: number) => index !== action.index)
+          acceptFiles: [...state.acceptFiles],
+          rejectMessage: [...state.rejectMessage, action.message ],
+          rejectFiles: [...state.rejectFiles, action.file]
+        }
+      case 'CLEAR_REJECTED_FILE':
+        return {
+          ...state,
+          acceptFiles: [...state.acceptFiles],
+          rejectMessage: state.rejectMessage.filter((item, index) => {
+            return index !== action.index
+          }),
+          rejectFiles: state.rejectFiles.filter((item, index) => {
+            return index !== action.index
+          })
+        }
       case 'CLEAR':
-        return []
+        return {
+          ...initialState
+        }
       default:
         throw new Error()
     }
   }
+
+
 
   const handleAddFile = (file: File) => {
     dispatch({type: 'ADD_FILE', file})
@@ -74,7 +88,7 @@ const UploadForm: React.FC<UploadFormProps> = ({handleCloseModal}) => {
   }
 
   const handleClearFile = (index: number) => {
-    dispatch({type: 'CLEAR_FILE', index})
+    dispatch({type: 'CLEAR_REJECTED_FILE', index})
   }
 
   const handleClear = () => {
@@ -92,33 +106,31 @@ const UploadForm: React.FC<UploadFormProps> = ({handleCloseModal}) => {
 
 
   // Valid Files
-  const filesValid = state.filter(file => file.valid === true)
 
-  const hasValidFiles = filesValid.length > 0 ? true : false
+  const hasValidFiles = state.acceptFiles.length > 0 ? true : false
 
-  const fileList = state.map(target => (
-    target.valid ?
-      <li key={target.file.name}>
-        {target.file.name} - {target.file.size} bytes
+  const fileList = state.acceptFiles.map(( target: File ) => (
+      <li key={target.name}>
+        {target.name} - {toKilobytes(target.size)}
       </li>
-    :
-     null
-  )).filter(value => value !== null)
+    ))
 
-  // Invalid Files
-  const filesInvalid = state.filter(file => file.valid !== true)
 
-  const hasInvalidFiles = filesInvalid.length > 0 ? true : false
+  const hasInvalidFiles = state.rejectFiles.length > 0 ? true : false
 
-  const invalidFilesList = state.map((file, index) => ( 
-    !file.valid ?  
-    <Message
-      key={index}
-      clickHandler={() => handleClearFile(index)}
-      message={file.message}
-    />
-    : null
-  )).filter(value => value !== null)
+  const invalidFiles = state.rejectFiles.map(
+    (file: FileRejection, index: number) => { 
+      return ( 
+        <Message
+          key={file.file.name}
+          clickHandler={() => handleClearFile(index)}
+          message={
+            `Error with file: ${file.file.name} - ${file.errors[0].message}.`
+          }
+        />
+      )
+    }
+  )
 
   return (
     <>
@@ -128,13 +140,13 @@ const UploadForm: React.FC<UploadFormProps> = ({handleCloseModal}) => {
       />
       <UploadFiles
         handleSuccess={handleCloseModalClear}
-        files={filesValid.map(f => f.file)}
+        files={state.acceptFiles}
       />
       <UploadTargets 
         hasValidFiles={hasValidFiles}
         fileList={fileList}
         hasInvalidFiles={hasInvalidFiles}
-        invalidFilesList={invalidFilesList}
+        invalidFiles={invalidFiles}
       />
     </>
   )
