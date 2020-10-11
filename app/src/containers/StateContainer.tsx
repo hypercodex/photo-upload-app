@@ -3,8 +3,8 @@ import React, { useMemo, useReducer } from 'react'
 
 interface StateInterface {
   searchQuery: string;
-  fileCount: number | null;
-  totalSize: number | null;
+  fileCount: number;
+  totalSize: number;
 }
 
 type Action = 
@@ -28,8 +28,8 @@ interface StateActions {
 
 export const initialState: StateInterface = {
   searchQuery: '',
-  fileCount: null,
-  totalSize: null,
+  fileCount: 0,
+  totalSize: 0,
 }
 
 export const StateContext = React.createContext<{
