@@ -30,10 +30,10 @@ export const filesInternal: ObjectStringMap[] = [
 ]
 
 const internalToFileType: ObjectStringMap = {
-    'image/jpg': 'JPG',
-    'image/png': 'PNG'
+    'jpg': 'JPG',
+    'png': 'PNG'
 }
 
 export const filesExternal: ObjectStringMap[] = filesInternal.map(file => {
-    return {...file, mimetype: internalToFileType[file.mimetype]}
+    return {...file, extension: internalToFileType[file.extension]}
 })

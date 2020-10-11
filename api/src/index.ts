@@ -40,9 +40,10 @@ async function start() {
   app.get('/playground', expressPlaygrond({ endpoint: '/graphql' }))
 
   // file service
+  console.log(path.join(__dirname, 'assets', 'uploads'))
   app.use(
-    '/uploads',
-    express.static(path.join(__dirname, 'assets', 'uploads'))
+    '/public',
+    express.static(path.join(__dirname, '..', 'assets', 'uploads'))
   )
 
   app.listen(

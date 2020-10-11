@@ -1,4 +1,4 @@
 export enum EnumFileType {
-    JPG = 'image/jpg',
-    PNG = 'image/png'
+    JPG = 'jpg',
+    PNG = 'png'
 }

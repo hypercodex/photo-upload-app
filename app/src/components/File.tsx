@@ -1,44 +1,47 @@
 import React, { useContext } from 'react'
 
-import { GraphQLContext } from '../containers/App'
+import type { File } from '../../../api/src/types'
 
+import { GraphQLContext } from '../containers/App'
+import { toKilobytes } from '../lib'
 import Button from './Button'
 
 import style from './File.module.scss'
 
 
-interface FileProps {
-  id: string;
-  name: string;
-  size: string;
-}
 
-const File: React.FC<FileProps> = React.memo(({id, name, size}) => {
+const FileUpload: React.FC<{idx: number; file: File}> = React.memo(({idx, file}) => {
   const { handleDelete, refetch } = useContext(GraphQLContext)
   const clickHandler = () => {
-    handleDelete(id)
+    handleDelete(file.id)
     refetch()
   } 
   return (
-    <div className={style.panel}>
-      <div className={style.name}>
-        {name}
-      </div>
-      <div className={style.foot}>
-        <div className={style.size}>
-          {size}
+    <>
+        <div className={style.panel}>
+        <img src={file.url} className={style.image} />
+          <div className={style.overlay}>
+            <div className={style.name}>
+             Doc {++idx}
+            {/* {file.name} */}
+            </div>
+            <div className={style.foot}>
+              <div className={style.size}>
+              {toKilobytes(file.size)}
+              </div>
+            <Button
+              clickHandler={clickHandler}
+              extraClass={style.button}
+            >
+              Delete
+            </Button>
+          </div>
         </div>
-        <Button
-          clickHandler={clickHandler}
-          extraClass={style.button}
-        >
-          Delete
-        </Button>
       </div>
-    </div>
+    </>
   )
 })
 
-File.displayName = 'File'
+FileUpload.displayName = 'FileUpload'
 
-export default File
+export default FileUpload

@@ -44,6 +44,7 @@ const Mutation: MutationResolvers = {
         filename: 'test',
         size: payload.size,
         mimetype,
+        extension,
         uploadedOn: new Date()
       }
       // Store the file in the filesystem.
