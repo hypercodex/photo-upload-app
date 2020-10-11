@@ -76,6 +76,10 @@
   margin-top: -15px;
   margin-left: -15px;
   position: absolute;
+  @media (max-width: base.$mobileBreak) {
+    margin-top: -10px;
+    margin-left: -20px;
+  }
 }
 
 .foot {
