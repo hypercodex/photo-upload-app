@@ -6,6 +6,8 @@ import { Db } from 'mongodb'
 import { MutationResolvers } from './types'
 import { File } from '../types'
 
+import { cleanFilename } from '../lib/sanitize'
+
 
 
 interface CreateReadStream {
@@ -37,13 +39,13 @@ const Mutation: MutationResolvers = {
       const ULID = ulid() as string
       const { createReadStream, filename, mimetype, encoding }: FileSteam = await payload.file;
       const stream = createReadStream();
-      const extension = mimetype.split('/')[1]
+      const extension = String(mimetype).split('/')[1]
       const path = getPath(extension, ULID)
       const file: Partial<File> = {
         ulid: ULID,
-        filename: 'test',
-        size: payload.size,
-        mimetype,
+        filename: cleanFilename(filename, extension),
+        size: Number(payload.size),
+        mimetype: String(mimetype),
         extension,
         uploadedOn: new Date()
       }
