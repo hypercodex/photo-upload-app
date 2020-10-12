@@ -8,10 +8,16 @@ import type { SetStatsAction } from './containers/StateContainer'
 // Decimal rounding
 export const precisionRound = (
   value: number,
-  precision: number
+  precision = 0
 ): number => {
-  const factor = Math.pow(10, precision || 0)
-  return Math.round(value * factor) / factor
+  const factor = Math.pow(10, precision)
+  const scale = value * factor
+  const roundedScale = Math.round(value * factor)
+  const result = roundedScale / factor
+  if ( precision < 0 ) {
+    return Math.floor(result)
+  }
+  return result
 }
 
 // File size conversions

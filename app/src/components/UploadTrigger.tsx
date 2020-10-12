@@ -10,9 +10,7 @@ interface Handler {
   (): void;
 }
 
-
-
-const uploadtrigger: React.FC<{clickHandler: Handler}> = ({clickHandler}) => {
+const UploadTrigger: React.FC<{clickHandler: Handler}> = ({clickHandler}) => {
   return (
     <Button
       clickHandler={clickHandler}
@@ -23,4 +21,4 @@ const uploadtrigger: React.FC<{clickHandler: Handler}> = ({clickHandler}) => {
   )
 }
 
-export default uploadtrigger
+export default UploadTrigger

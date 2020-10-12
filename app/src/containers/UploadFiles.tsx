@@ -6,7 +6,7 @@ import { GraphQLContext } from '../containers/App'
 import UploadTrigger from '../components/UploadTrigger'
 
 
-const MUTATION = gql`
+export const MUTATION = gql`
   mutation PostFile($input: PostFileInput!) {
     postFiles(input: $input) {
       __typename

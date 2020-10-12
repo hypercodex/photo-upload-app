@@ -1,6 +1,6 @@
 import React, { useContext } from 'react'
 
-import type { File } from '../../../api/src/types'
+import type { File as ApiFile } from '../../../api/src/types'
 
 import { GraphQLContext } from '../containers/App'
 import { toKilobytes } from '../lib'
@@ -20,7 +20,7 @@ const Outset: React.FC<{orient: string}> = ({orient, children}) =>
     </div>
   </div>
 
-const FileUpload: React.FC<{idx: number; file: File}> = React.memo(({idx, file}) => {
+const FileUpload: React.FC<{idx: number; file: ApiFile}> = React.memo(({idx, file}) => {
   const { handleDelete, refetch } = useContext(GraphQLContext)
   const clickHandler = () => {
     handleDelete(file.id)
