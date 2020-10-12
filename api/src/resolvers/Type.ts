@@ -15,7 +15,8 @@ const Type = {
   },
   File: {
     id: (root: File): string => root.ulid,
-    url: (root: File): string => `${FILE_SERVICE}/${ROOT_PATH}/${root.ulid}.${root.extension}`,
+    url: (root: File): string => `${FILE_SERVICE}/${ROOT_PATH}/${root.ulid}.${'webp'}`,
+    originalUrl: (root: File): string => `${FILE_SERVICE}/${ROOT_PATH}/${root.ulid}.${root.extension}`,
   },
   DateTime: new GraphQLScalarType({
     name: 'DateTime',

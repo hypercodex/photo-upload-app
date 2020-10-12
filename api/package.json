@@ -6,7 +6,7 @@
   "scripts": {
     "start": "node dist/index.js",
     "dev": "cd src/ && nodemon -e ts,json,graphql index.ts",
-    "test": "cd src/ && jest --coverage"
+    "test": "cd src/ && jest"
   },
   "license": "MIT",
   "private": true,
@@ -19,6 +19,7 @@
     "@types/jest": "^26.0.14",
     "@types/mongodb": "^3.5.27",
     "@types/node": "^14.11.5",
+    "@types/sharp": "^0.26.0",
     "cross-env": "^7.0.2",
     "eslint": "^7.10.0",
     "graphql-tools": "^6.2.4",
@@ -34,6 +35,7 @@
     "graphql-playground-middleware-express": "^1.7.21",
     "helmet": "^4.1.1",
     "mongodb": "^3.6.2",
+    "sharp": "^0.26.1",
     "ulid": "^2.3.0"
   }
 }
