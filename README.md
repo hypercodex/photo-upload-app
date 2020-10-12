@@ -17,6 +17,7 @@ This repository uses `yarn-workspaces`, hence there is a single yarn.lock and al
 
 Run full development service environment with:
 ```
+yarn
 yarn devAll
 ```
 

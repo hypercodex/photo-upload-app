@@ -1,21 +1,30 @@
-import { files } from './mockData'
+import { filesInternal as files } from './mockData'
+import type { ObjectStringMap } from './mockData'
 
+interface ObjectFunction {
+    (...args: unknown[]): FunctionalObject |
+        ObjectStringMap[] |
+        number
+}
 
-const db = {
-    collection: (anything: unknown) => ({
+interface FunctionalObject {
+    [key: string]: ObjectFunction  
+}
+
+const db: FunctionalObject = {
+    collection: () => ({
         estimatedDocumentCount: () => {
             return 42
         },
-        find: (anything: unknown) => ({
+        find: () => ({
             toArray: () => files,
-            sort: (anything: unknown) => ({
-                project: (anything: unknown) => ({
+            sort: () => ({
+                project: () => ({
                     toArray: () => files
                 })
             })
         })
     })
 }
-
 
 export default db

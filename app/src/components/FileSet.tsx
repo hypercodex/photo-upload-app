@@ -1,22 +1,23 @@
 import React from 'react'
 
+import type { File as FileInterface } from '../../../api/src/types'
+
 import File from './File'
 
 
 
 interface FileSetProps {
-  files: { name: string }[];
+  files: FileInterface[];
 }
-
 
 const FileSet: React.FC<FileSetProps> = ({ files }) => {
   return (
     <>
-      {!files ? '' : files.map(( val, idx ) =>
+      {!files ? '' : files.map(( file, idx ) =>
         <File 
-          key={idx}
-          name={`Doc ${val.name}`}
-          size={`${idx}00kb`}
+          key={file.id}
+          idx={idx}
+          file={file}
           />
       )}
     </>

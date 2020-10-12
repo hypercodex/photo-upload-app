@@ -1,7 +1,15 @@
 @use '../styles/color';
 
+
+$buttonLight: scale-color(
+  color.$lavender,
+  $lightness: 35%,
+  $saturation: 20%
+);
+
 .buttonBase {
   cursor: pointer;
-  background-color: color.$lavender;
+  background-color: $buttonLight;
   border-radius: 3px;
 }
+

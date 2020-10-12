@@ -2,24 +2,22 @@ import React from 'react'
 
 import Dismiss from './Dismiss'
 
-import style from './Message.module.scss'
-
+import style from './ModalHead.module.scss'
 
 interface Handler {
   (): void;
 }
 
-interface MessageProps {
-  message?: string;
+interface ModalHeadProps {
   clickHandler: Handler;
 }
 
-const Message: React.FC<MessageProps> = ({message, clickHandler}) => {
+const ModalHead: React.FC<ModalHeadProps> = ({ clickHandler }) => {
   return (
     <div className={style.wrapper}>
-      <div className={style.message}>
-        {message ? message : ''}
-      </div>
+      <h3 className={style.htag}>
+        File Uploader
+      </h3>
       <Dismiss
         clickHandler={clickHandler}
         extraClass={style.dismiss}
@@ -28,4 +26,4 @@ const Message: React.FC<MessageProps> = ({message, clickHandler}) => {
   )
 }
 
-export default Message
+export default ModalHead

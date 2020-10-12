@@ -1,19 +1,21 @@
 import React, { useState } from 'react'
 
+import ModalHead from './ModalHead'
 import Button from './Button'
-import ClientOnlyPortal from './ClientOnlyPortal'
-import UploadForm from './UploadForm'
+import ClientOnlyPortal from '../containers/ClientOnlyPortal'
+import UploadForm from '../containers/UploadForm'
 
 import style from './Modal.module.scss'
 
 
 const Modal: React.FC = () => {
   const [open, setOpen] = useState(false)
+  const toggleModal = () => setOpen(prevState => !prevState)
 
   return (
     <>
       <Button
-        clickHandler={() => setOpen(true)}
+        clickHandler={toggleModal}
         extraClass={style.button}
       >
         Upload
@@ -23,7 +25,8 @@ const Modal: React.FC = () => {
           <div className={ style.backdrop }>
             <div className={ style.modal }>
               <div className={ style.formWrapper }>
-                <UploadForm handleCloseModal={() => setOpen(false)}/>
+                <ModalHead clickHandler={toggleModal} />
+                <UploadForm handleCloseModal={toggleModal}/>
               </div>
             </div>
           </div>

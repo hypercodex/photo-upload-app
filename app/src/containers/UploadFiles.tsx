@@ -1,13 +1,18 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import { gql, useMutation } from '@apollo/client';
 
-import Button from './Button'
+import { GraphQLContext } from '../containers/App'
 
-const MUTATION = gql`
+import UploadTrigger from '../components/UploadTrigger'
+
+
+export const MUTATION = gql`
   mutation PostFile($input: PostFileInput!) {
     postFiles(input: $input) {
+      __typename
       id
-      path
+      filename
+      title
     }
   }
 `
@@ -22,6 +27,9 @@ interface UploadFilesProps {
 }
 
 const UploadFiles: React.FC<UploadFilesProps> = ({files, handleSuccess}) => {
+  
+  const {  refetch } = useContext(GraphQLContext)
+
   const [mutate] = useMutation(MUTATION, {
     update(cache, { data: { postFiles } }) {
       cache.modify({
@@ -32,7 +40,7 @@ const UploadFiles: React.FC<UploadFilesProps> = ({files, handleSuccess}) => {
               fragment: gql`
                 fragment NewFile on File {
                   id
-                  path
+                  filename
                 }
               `
             });
@@ -45,17 +53,16 @@ const UploadFiles: React.FC<UploadFilesProps> = ({files, handleSuccess}) => {
 
   
   const handleMutate = () => {
-    console.log(files)
     if (files && files.length > 0)  {
-      mutate({ variables: { input: { files }}}).then(res => {
+      const filesPayload = files.map(file => ({file, size: file.size}))
+      mutate({ variables: { input: { files: filesPayload }}}).then(() => {
         handleSuccess()
-        // change with working cache config
-        location.reload()
+        refetch()
       })
     }
   }
 
-  return <Button clickHandler={handleMutate}>Upload</Button>
+  return <UploadTrigger clickHandler={handleMutate}>Upload</UploadTrigger>
 }
 
 export default UploadFiles

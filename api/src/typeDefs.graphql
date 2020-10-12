@@ -6,21 +6,27 @@ enum FileType {
 type File {
   id: ID!
   ulid: String!
-  path: String!
-  url: String!
-  name: String!
-  mimetype: FileType!
-  size: String!
+  url: String! # Derived
+  filename: String!
+  mimetype: String!
+  extension: FileType! # Derived
+  size: Int! 
   uploadedOn: DateTime!
+  title: String
   description: String
 }
+input UploadPayload {
+  file: Upload!
+  size: Int!
+}
 input PostFileInput {
-  name: String
-  files: [Upload!]!
-  description: String
+  files: [UploadPayload!]!
 }
 input SearchFileInput {
   search: String!
+}
+input DeleteFileInput {
+  id: ID!
 }
 type Query {
   totalFiles: Int!
@@ -31,6 +37,10 @@ type UploadMutationReponse {
   message: String
   errors: String
 }
+type DeleteFileMutationResponse {
+  id: ID!
+}
 type Mutation {
   postFiles(input: PostFileInput!): [File!]! 
+  deleteFile(input: DeleteFileInput!): DeleteFileMutationResponse! 
 }

@@ -7,7 +7,8 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "test": "cd ./src && jest --coverage"
+    "test": "cd ./src && jest --coverage",
+    "typeCheck": "tsc --noEmit"
   },
   "license": "MIT",
   "private": true,
