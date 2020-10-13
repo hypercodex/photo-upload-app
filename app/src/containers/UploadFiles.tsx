@@ -11,8 +11,8 @@ export const MUTATION = gql`
     postFiles(input: $input) {
       __typename
       id
-      filename
-      title
+      size
+      url
     }
   }
 `
@@ -40,7 +40,8 @@ const UploadFiles: React.FC<UploadFilesProps> = ({files, handleSuccess}) => {
               fragment: gql`
                 fragment NewFile on File {
                   id
-                  filename
+                  size
+                  url
                 }
               `
             });

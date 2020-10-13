@@ -8,7 +8,9 @@ module.exports = {
     '!**/coverage/**',
     '!**/*.config.js/**',
   ],
-  setupFilesAfterEnv: ['<rootDir>/src/setupTests.js'],
+  automock: false,
+  setupFilesAfterEnv: ['<rootDir>/src/setupTestsAfterEnv.ts'],
+  setupFiles: ['<rootDir>/src/setupTests.ts'],
   testPathIgnorePatterns: ['/node_modules/', '/.next/'],
   transform: {
     '^.+\\.(js|jsx|ts|tsx)$': '<rootDir>/../node_modules/babel-jest',

@@ -23,9 +23,10 @@ export type File = {
   id: Scalars['ID'];
   ulid: Scalars['String'];
   url: Scalars['String'];
+  originalUrl: Scalars['String'];
   filename: Scalars['String'];
-  mimetype: FileType;
-  extension: Scalars['String'];
+  mimetype: Scalars['String'];
+  extension: FileType;
   size: Scalars['Int'];
   uploadedOn: Scalars['DateTime'];
   title?: Maybe<Scalars['String']>;
@@ -67,10 +68,15 @@ export type UploadMutationReponse = {
   errors?: Maybe<Scalars['String']>;
 };
 
+export type DeleteFileMutationResponse = {
+  __typename?: 'DeleteFileMutationResponse';
+  id: Scalars['ID'];
+};
+
 export type Mutation = {
   __typename?: 'Mutation';
-  postFiles: Array<File>;
-  deleteFile: File;
+  postFiles?: Maybe<Array<File>>;
+  deleteFile?: Maybe<DeleteFileMutationResponse>;
 };
 
 

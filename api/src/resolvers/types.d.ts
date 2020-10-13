@@ -27,9 +27,10 @@ export type File = {
   id: Scalars['ID'];
   ulid: Scalars['String'];
   url: Scalars['String'];
+  originalUrl: Scalars['String'];
   filename: Scalars['String'];
-  mimetype: FileType;
-  extension: Scalars['String'];
+  mimetype: Scalars['String'];
+  extension: FileType;
   size: Scalars['Int'];
   uploadedOn: Scalars['DateTime'];
   title?: Maybe<Scalars['String']>;
@@ -71,10 +72,15 @@ export type UploadMutationReponse = {
   errors?: Maybe<Scalars['String']>;
 };
 
+export type DeleteFileMutationResponse = {
+  __typename?: 'DeleteFileMutationResponse';
+  id: Scalars['ID'];
+};
+
 export type Mutation = {
   __typename?: 'Mutation';
-  postFiles: Array<File>;
-  deleteFile: File;
+  postFiles?: Maybe<Array<File>>;
+  deleteFile?: Maybe<DeleteFileMutationResponse>;
 };
 
 
@@ -184,6 +190,7 @@ export type ResolversTypes = ResolversObject<{
   DeleteFileInput: ResolverTypeWrapper<Partial<DeleteFileInput>>;
   Query: ResolverTypeWrapper<{}>;
   UploadMutationReponse: ResolverTypeWrapper<Partial<UploadMutationReponse>>;
+  DeleteFileMutationResponse: ResolverTypeWrapper<Partial<DeleteFileMutationResponse>>;
   Mutation: ResolverTypeWrapper<{}>;
   CacheControlScope: ResolverTypeWrapper<Partial<CacheControlScope>>;
   Upload: ResolverTypeWrapper<Partial<Scalars['Upload']>>;
@@ -203,6 +210,7 @@ export type ResolversParentTypes = ResolversObject<{
   DeleteFileInput: Partial<DeleteFileInput>;
   Query: {};
   UploadMutationReponse: Partial<UploadMutationReponse>;
+  DeleteFileMutationResponse: Partial<DeleteFileMutationResponse>;
   Mutation: {};
   Upload: Partial<Scalars['Upload']>;
   Boolean: Partial<Scalars['Boolean']>;
@@ -218,9 +226,10 @@ export type FileResolvers<ContextType = any, ParentType extends ResolversParentT
   id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
   ulid?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   url?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  originalUrl?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   filename?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
-  mimetype?: Resolver<ResolversTypes['FileType'], ParentType, ContextType>;
-  extension?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  mimetype?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  extension?: Resolver<ResolversTypes['FileType'], ParentType, ContextType>;
   size?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
   uploadedOn?: Resolver<ResolversTypes['DateTime'], ParentType, ContextType>;
   title?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
@@ -240,9 +249,14 @@ export type UploadMutationReponseResolvers<ContextType = any, ParentType extends
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 }>;
 
+export type DeleteFileMutationResponseResolvers<ContextType = any, ParentType extends ResolversParentTypes['DeleteFileMutationResponse'] = ResolversParentTypes['DeleteFileMutationResponse']> = ResolversObject<{
+  id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+}>;
+
 export type MutationResolvers<ContextType = any, ParentType extends ResolversParentTypes['Mutation'] = ResolversParentTypes['Mutation']> = ResolversObject<{
-  postFiles?: Resolver<Array<ResolversTypes['File']>, ParentType, ContextType, RequireFields<MutationPostFilesArgs, 'input'>>;
-  deleteFile?: Resolver<ResolversTypes['File'], ParentType, ContextType, RequireFields<MutationDeleteFileArgs, 'input'>>;
+  postFiles?: Resolver<Maybe<Array<ResolversTypes['File']>>, ParentType, ContextType, RequireFields<MutationPostFilesArgs, 'input'>>;
+  deleteFile?: Resolver<Maybe<ResolversTypes['DeleteFileMutationResponse']>, ParentType, ContextType, RequireFields<MutationDeleteFileArgs, 'input'>>;
 }>;
 
 export interface UploadScalarConfig extends GraphQLScalarTypeConfig<ResolversTypes['Upload'], any> {
@@ -255,6 +269,7 @@ export type Resolvers<ContextType = any> = ResolversObject<{
   File?: FileResolvers<ContextType>;
   Query?: QueryResolvers<ContextType>;
   UploadMutationReponse?: UploadMutationReponseResolvers<ContextType>;
+  DeleteFileMutationResponse?: DeleteFileMutationResponseResolvers<ContextType>;
   Mutation?: MutationResolvers<ContextType>;
   Upload?: GraphQLScalarType;
 }>;

@@ -36,9 +36,9 @@ const QueryResult: React.FC<QueryResultProps> = ({
   return (
     <>
     {loading ? 
-      ( <p>Loading...</p> ) :
+      ( <p></p> ) :
      error ?
-      ( <p>Error...</p> ) :
+      ( <p></p> ) :
       (<FileSet files={files} />)
     }
     </>
@@ -49,10 +49,8 @@ const ALL_FILES = gql`
   query AllFiles {
     allFiles {
       id
-      filename
       size
       url
-      title
     }
   }
 `
@@ -61,12 +59,10 @@ const SEARCH_FILES = gql`
   query SearchFiles($input: SearchFileInput!) {
     searchFiles(input: $input) {
       id
-      filename
       size
       url
-      title
+    }
   }
-}
 `
 
 const MUTATION = gql`

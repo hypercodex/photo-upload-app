@@ -1,5 +1,3 @@
-import { Db } from 'mongodb'
-import { SearchFileInput } from '../types'
 import type { QueryResolvers } from './types'
 
 
@@ -12,14 +10,16 @@ const Query: QueryResolvers = {
     db.collection('files')
       .find()
       .toArray(),
+
   searchFiles: (root, args, { db }) => {
-    const query = { $text: { $search: args.input.search } }
+
+    // cast input to string to avoid No-SQL injection
+    const query = { $text: { $search: String(args.input.search) } }
     const sort = { score: { $meta: "textScore" } }
     const projection = { score: { $meta: "textScore" } }
 
     return db.collection('files')
       .find(query)
-      // @ts-ignore
       .sort(sort)
       .project(projection)
       .toArray()

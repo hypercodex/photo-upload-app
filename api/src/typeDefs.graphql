@@ -7,6 +7,7 @@ type File {
   id: ID!
   ulid: String!
   url: String! # Derived
+  originalUrl: String!
   filename: String!
   mimetype: String!
   extension: FileType! # Derived
@@ -41,6 +42,6 @@ type DeleteFileMutationResponse {
   id: ID!
 }
 type Mutation {
-  postFiles(input: PostFileInput!): [File!]! 
-  deleteFile(input: DeleteFileInput!): DeleteFileMutationResponse! 
+  postFiles(input: PostFileInput!): [File!] 
+  deleteFile(input: DeleteFileInput!): DeleteFileMutationResponse 
 }

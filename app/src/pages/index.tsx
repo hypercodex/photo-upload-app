@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 
 import GrapQlProvider from '../containers/GraphQlProvider'
 import StateContainer from '../containers/StateContainer'

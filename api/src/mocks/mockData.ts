@@ -6,7 +6,7 @@ export const filesInternal: ObjectStringMap[] = [
   {
     "id": "01ARZ3NDEKTSV4RRFFQ69G5FAV",
     "ulid": "01ARZ3NDEKTSV4RRFFQ69G5FAV",
-    "url": "http://localhost:4000/public/01ARZ3NDEKTSV4RRFFQ69G5FAV.jpg",
+    "url": "http://localhost:4000/public/01ARZ3NDEKTSV4RRFFQ69G5FAV.webp",
     "filename": "having_fun.jpg",
     "mimetype": "image/jpg",
     "extension": "jpg",
@@ -18,7 +18,7 @@ export const filesInternal: ObjectStringMap[] = [
   {
     "id": "000XAL6S41ACTAV9WEVGEMMVR8", 
     "ulid": "000XAL6S41ACTAV9WEVGEMMVR8", 
-    "url": "http://localhost:4000/public/000XAL6S41ACTAV9WEVGEMMVR8.png",
+    "url": "http://localhost:4000/public/000XAL6S41ACTAV9WEVGEMMVR8.webp",
     "filename": "having_fun_2.png",
     "mimetype": "image/png",
     "extension": "png",
@@ -32,7 +32,7 @@ export const filesInternal: ObjectStringMap[] = [
 export const mockFile = {
     "id": "01ARZ3NDEKTSV4RRFFQ69G5FAV",
     "ulid": "01ARZ3NDEKTSV4RRFFQ69G5FAV",
-    "url": "http://localhost:4000/public/01ARZ3NDEKTSV4RRFFQ69G5FAV.jpg",
+    "url": "http://localhost:4000/public/01ARZ3NDEKTSV4RRFFQ69G5FAV.webp",
     "filename": "having_fun.jpg",
     "mimetype": "image/jpg",
     "extension": "jpg",
