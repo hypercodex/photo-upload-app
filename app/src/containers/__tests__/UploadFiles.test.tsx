@@ -15,6 +15,15 @@ import UploadFiles, { MUTATION } from '../UploadFiles'
 import { filesApi } from '../../mocks/mockData'
 
 
+const fetchMock = fetch as FetchMock
+beforeEach(() => { 
+  fetchMock.doMock(req => {
+    return new Promise((resolve, reject) => {
+      return { token: 'double cookie token' }
+    })
+  })
+})
+
 // Mock files
 const mockFiles = [
   new File([new Blob()], 'mockFile1', { type: 'image/png' }),

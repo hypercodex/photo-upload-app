@@ -30,8 +30,18 @@ const getPath = (extension: string, id: string): string => {
   return `${UPLOAD_DIR}/${id}.${extension}`
 }
 
+interface Context {
+  authorized: boolean;
+  db: Db
+}
+
 const Mutation: MutationResolvers = {
-  async postFiles(root, args, { db }: { db: Db }) {
+  async postFiles(root, args, { authorized, db }: Context  ) {
+    console.log('AUTHORIZATION UPLOAD', authorized)
+
+    // protect mutations via double cookie authentication
+    if (authorized === false) return null;
+
     const results = []
     for (const payload of args.input.files) {
       const ULID = ulid() as string
@@ -59,7 +69,12 @@ const Mutation: MutationResolvers = {
     }
     return Promise.all(results)
   },
-  async deleteFile(root, args, { db }: { db: Db }) {
+  async deleteFile(root, args, { authorized, db }: Context ) {
+
+    console.log('AUTHORIZATION DELETE', authorized)
+    // protect mutations via double cookie authentication
+    if (authorized === false) return null;
+
     return new Promise((resolve, reject) => {
       db.collection('files')
         .findOneAndDelete(

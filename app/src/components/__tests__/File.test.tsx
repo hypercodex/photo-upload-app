@@ -1,9 +1,12 @@
 import React from 'react'
 import { render, screen, fireEvent } from '@testing-library/react'
+import { FetchMock } from 'jest-fetch-mock'
 
-import { mockFile } from '../../mocks/mockData'
 import { GraphQLContext } from '../../containers/App'
 import File from '../File'
+
+
+import { mockFile } from '../../mocks/mockData'
 
 
 test('test: File component functionality', () => {

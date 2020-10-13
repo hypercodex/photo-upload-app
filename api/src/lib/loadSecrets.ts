@@ -11,6 +11,9 @@ async function loadSecrets() {
       throw new Error('Error in DB_HOST env')
     }
     process.env['DB_HOST'] = envFile.DB_HOST
+    process.env['COOKIE_SECRET'] = envFile.COOKIE_SECRET
+    process.env['KEY1'] = envFile.KEY1
+    process.env['KEY2'] = envFile.KEY2
   }
 }
 
