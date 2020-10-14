@@ -1,8 +1,7 @@
 import path from 'path'
 import { promises as fs } from 'fs'
 import type { Db } from 'mongodb'
-import express from 'express'
-import { Request, Response } from 'express';
+import express, { Request, Response } from 'express'
 import { ulid } from 'ulid'
 import Cookies from 'cookies'
 import cookieParser from 'cookie-parser'
@@ -32,8 +31,8 @@ const authorize = async (req: Request, res: Response) => {
   const cookies = new Cookies(req, res, { keys: keys })
   // generate a token
   const token = ulid()
-  // set token in http only signed cookie 
-  cookies.set('authorization', token, {httpOnly: false})
+  // set token in signed cookie 
+  cookies.set('authorization', token, {httpOnly: false, signed: true})
   // set token in header
   res.set('authorization', token)
   res.json({ token })
@@ -49,7 +48,7 @@ async function start() {
   // get DB
   const db = await dbClient()
   
-  // close authenticated context over the db client
+  // graphql context authenticated context is a closure over the db client
   const getAuthContext: GetAuthContext = ({ req, res})  => {
     const cookies = new Cookies(req, res, {keys: keys} )
     const token = req.headers.authorization || ''
@@ -57,10 +56,7 @@ async function start() {
       console.log('MISSING HEADER NOT AUTHORIZED')
       return { authorized: false, db }
     }
-    const cookieToken = cookies.get('authorization')
-    // const cookieToken = req.cookies.authorization
-    console.log('token', token)
-    console.log('cookie', cookieToken)
+    const cookieToken = cookies.get('authorization', { signed: true })
     if (!cookieToken || token !== cookieToken) {
       console.log('HANDLER NOT AUTHORIZED')
       return { authorized: false, db}
@@ -68,8 +64,6 @@ async function start() {
     console.log('HANDLER AUTHORIZED')
     return { authorized: true, db}
   }
-
-
 
   // load schema, construct Apollo Server
   const typeDefs = await fs.readFile('./typeDefs.graphql', 'utf-8')
@@ -81,7 +75,8 @@ async function start() {
   
   // create express app
   const app = express()
-  // app.use(cookieParser(process.env.COOKIE_SECRET))
+  
+  // cookie-parser needed to bridge cookies into apollo
   app.use(cookieParser())
 
   // helment blocks graphql playground... 
