@@ -2,16 +2,16 @@
 File uploader application built with intention of following best modern development practices.
 
 **Built With:**
-- [ NextJS ](https://nextjs.org/)
-- [ React ](https://reactjs.org/)
-- [ React Drop Zone ](https://react-dropzone.js.org/)
-- [ Apollo Client ](https://www.apollographql.com/apollo-client)
-- [ Apollo Server ](https://www.apollographql.com/docs/apollo-server/)
-- [ NodeJS ](https://nodejs.dev/)
-- [ Express ](https://expressjs.com/)
-- [ Docker ](https://www.docker.com/)
+- [NextJS](https://nextjs.org/)
+- [React](https://reactjs.org/)
+- [React Drop Zone](https://react-dropzone.js.org/)
+- [Apollo Client](https://www.apollographql.com/apollo-client)
+- [Apollo Server](https://www.apollographql.com/docs/apollo-server/)
+- [NodeJS](https://nodejs.dev/)
+- [Express](https://expressjs.com/)
+- [Docker](https://www.docker.com/)
 
-...and a whole lota love.
+This app was motivated by a 48 hour development sprint. The state of the repository at that time can be found in this [tagged version](https://github.com/hypercodex/photo-upload-app/tree/0.0.1).
 
 ---
 
@@ -24,7 +24,7 @@ Note: This is an experimental app, and as such, is not currently ready for produ
 - docker and docker-compose
 
 #### Install notes
-Note regarding _secrets_: The distributed 'application' bundle has the secrets with correct values, as well as scrubbed `__TEMPLATE__`  secret/env files checked into the repository. If you are running the app from a Github clone, then you will need to fill the template env files  with real values and remove the string `__TEMPLATE__` from the file name before running app for first time.  
+Note regarding _secrets_: The distributed 'application' bundle has the secrets with correct values, as well as scrubbed `__TEMPLATE__`  secret/env files checked into the repository. If you are running the app from a Github clone (recommended), then fill the template env files with real values and remove the string `__TEMPLATE__` from the file name before running app for first time.  
 Env files required to run app:
 - `api/.env`
 - `api/.env.json`
@@ -162,6 +162,10 @@ Common client side web application considerations are the following:
   - Mitigation: Generate CSRF Token with well-known hashing algorithm ✔
 - Content Security Policy (CSP): Security header that whitelists sources of trusted content. ✔
 
+Additional information file notes can be found in the following OWASP articles:<br/>
+[Cross-Site Request Forgery Prevention Cheat Sheet](https://cheatsheetseries.owasp.org/cheatsheets/Cross-Site_Request_Forgery_Prevention_Cheat_Sheet.html#use-of-custom-request-headers)<br/>
+[File Upload Cheat Sheet](https://cheatsheetseries.owasp.org/cheatsheets/File_Upload_Cheat_Sheet.html)
+
 #### Database
 General database security considerations:
 - Any user submitted data **must** be sanitized and excaped before being used in a database query. ✔
@@ -171,7 +175,6 @@ General database security considerations:
   - App user role should follow Principle of Least Privledge (PLOP) ✔
 
 ##### MongoDB Security 
-[ Security Checklist ](https://docs.mongodb.com/manual/administration/security-checklist/)
 - Enable Access Control and Enforce Authentication ✔ 
 - Configure Role-Based Access Control ✔
 - Encrypt communication (TLS) ✗
@@ -181,6 +184,8 @@ General database security considerations:
 - Run MongoDB with dedicated user ✔
 - Run with secure configuration options ✔
 - Keep application and dependencies up-to-date and current with all security patches ✔
+
+Additional MongoDB considerations can be found in MongoDB's [security checklist](https://docs.mongodb.com/manual/administration/security-checklist/).
 
 #### Secrets
 Most modern application architectures provide credentials and secrets via environment variables. This allows the application to use whichever set of credentials are relevant for a particular environment without hardcoding them.
@@ -203,12 +208,13 @@ Application source code is a major attack vector. As such, security on developme
 ### Improvements
 Development of this application was approached with the goal of creating a robust and production ready system (though notabley this is ultimately a "hobbyist configuration"... since to truly scale this you would use a cloud PaaS bucket with signed uploads). As such there a few feature that still need to be implemented, yet given the comprehensive approach taken, once features are implmented they should be rather stable. This follows a "start-right stay-right" strategy.
 
-Some features that still need to be developed and areas for improvement are:
+Some features that still need to be developed as well as areas for improvement are:
 - Styling
 - Pagination
+- Debounce search form
 - Click to add file meta-data
 - Persisted documents
-- Click to preview in modal.
+- Click to preview in modal
 - Production deployment Dev/Ops
 
 ---
