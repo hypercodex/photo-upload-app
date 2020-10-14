@@ -1,5 +1,5 @@
 import React, { useContext } from 'react'
-import type { SyntheticEvent } from 'react'
+import type { ChangeEvent, FormEvent } from 'react'
 
 import { StateContext } from '../containers/StateContainer'
 
@@ -8,13 +8,13 @@ import style from './Search.module.scss'
 
 const Search: React.FC = () => {
   const { state, stateActions } = useContext(StateContext)
+
   
-  const handleSubmit = (e: SyntheticEvent) => {
+  const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
   }
-  
-  const handleChange = (e: SyntheticEvent) => {
-    // @ts-ignore
+
+  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     stateActions?.handleSetSearch(e.target.value)
   }
   

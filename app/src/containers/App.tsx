@@ -1,7 +1,17 @@
-import React, { useContext, useEffect, useMemo, useState } from 'react'
-import { gql, useQuery, useMutation} from '@apollo/client'
-
-import type { File } from '../../../api/src/types'
+import React, {
+  useContext,
+  useEffect,
+  useMemo,
+  useCallback
+} from 'react'
+import {
+  gql,
+  useQuery,
+  useLazyQuery,
+  useMutation,
+  MutationFunction,
+  RefetchQueriesFunction
+} from '@apollo/client'
 import { computeFileStats } from '../lib'
 import { StateContext } from '../containers/StateContainer'
 import Header from '../components/Header' 
@@ -9,41 +19,6 @@ import FileSet from '../components/FileSet'
 
 /* import Footer from '../components/Footer' */
 
-
-type Refetch = () => void
-
-interface QueryResultProps {
-  loading: boolean;
-  error: any;
-  files: File[];
-  refetch: Refetch; 
-}
-
-const QueryResult: React.FC<QueryResultProps> = ({
-  loading,
-  error,
-  files,
-  refetch
-}) => {
-  const { stateActions } = useContext(StateContext)
-  const { setRefetch } = useContext(GraphQLContext)
-  
-  useEffect(() => {
-    setRefetch(() => refetch)
-    computeFileStats(files, stateActions.setStats)
-  }, [setRefetch, refetch, files, stateActions.setStats])
-
-  return (
-    <>
-    {loading ? 
-      ( <p></p> ) :
-     error ?
-      ( <p></p> ) :
-      (<FileSet files={files} />)
-    }
-    </>
-  )
-}
 
 const ALL_FILES = gql`
   query AllFiles {
@@ -73,69 +48,103 @@ const MUTATION = gql`
   }
 `
 
-const AllFileSet: React.FC = () => {
-  const { loading, error, data, refetch } = useQuery(
-    ALL_FILES, {
-      fetchPolicy: 'cache-and-network'
-    }
-  )
-  const files = data?.allFiles
-  return (
-    <QueryResult
-      loading={loading}
-      error={error}
-      files={files}
-      refetch={refetch}
-      />
-  )
-}
 
-const SearchFileSet: React.FC<{searchQuery: string}> = ({ searchQuery }) => {
-  const { loading, error, data, refetch } = useQuery(SEARCH_FILES, {
-    variables: { input: { search: searchQuery } },
-    fetchPolicy: 'network-only'
-  });
-  const files = data?.searchFiles
-  return (
-    <QueryResult
-      loading={loading}
-      error={error}
-      files={files}
-      refetch={refetch}
-      />
-  )
-}
+// There are likely better types from Apollo for these
+type MutateHandlerDefault = (fileId: string) => void
+type RefetchDefault = () => void
 
-interface MutateHandler {
-  (fileId: string): void;
-}
 
 export const GraphQLContext = React.createContext<{
-  handleDelete: MutateHandler;
-  refetch: Refetch;
-  setRefetch: React.SetStateAction<any>;
+  handleDelete: MutationFunction | MutateHandlerDefault;
+  refetch?: RefetchQueriesFunction | RefetchDefault; 
 }>({
-  handleDelete: () => null,
+  handleDelete: (async () => null),
   refetch: () => null,
-  setRefetch: () => null
 })
 
 const App: React.FC = () => {
-  
-  const { state } = useContext(StateContext)
-  const { searchQuery } = state
-  const searchActive = searchQuery !== ''
 
-  const [refetch, setRefetch] = useState(() => () => null)
+  const { state, stateActions } = useContext(StateContext)
+
   const [mutate] = useMutation(MUTATION)
+  
+  // All files
+  const {
+    loading: allLoading,
+    error: allError,
+    data: allData,
+    refetch: allRefetch
+  } = useQuery(
+    ALL_FILES, {
+      fetchPolicy: 'network-only'
+    }
+  )
 
+  // Search
+  const [search,
+    {
+      loading: searchLoading,
+      error: searchError,
+      data: searchData,
+      refetch: searchRefetch
+    }
+  ] = useLazyQuery(SEARCH_FILES, {fetchPolicy: 'network-only'});
+
+  interface SearchArguments {
+    variables: {
+      input: {
+        search: string;
+      }
+    }
+  }
+
+  // The useLazyQuery query function `search` is currently not idempotentent due to bug in apollo
+  const searchCallback = useCallback(( searchArgs: SearchArguments ) => {
+      search(searchArgs)
+  }, [search])
+
+  // Search logic
+  const searchActive = state.searchQuery.length > 0 ? true : false
+
+  useEffect(() => {
+    if (!state.searchQuery) {
+      allRefetch()
+    }
+    if (searchActive) {
+      searchCallback({ variables: { input: { search: state.searchQuery } }})
+    } 
+  }, [searchActive, state.searchQuery, searchCallback, allRefetch])
+
+  const getQueryState = (searchActive: boolean) => {
+    if (!searchActive) {
+      return {
+        loading: allLoading,
+        error: allError,
+        files: allData?.allFiles,
+        refetch: allRefetch
+      }
+    } else {
+      return {
+        loading: searchLoading,
+        error: searchError,
+        files: searchData?.searchFiles ,
+        refetch: searchRefetch
+      }
+    }
+  }
+
+  const { loading, error, files, refetch } = getQueryState(searchActive)
+ 
+  useEffect(() => {
+    computeFileStats(files, stateActions.setStats)
+  }, [files, stateActions.setStats])
+ 
   const contextValue = useMemo(() => {
     return {
       handleDelete: (fileId: string) => {
         mutate({ variables: { input: { id: fileId }}})
       },
       refetch,
-      setRefetch
     }
   }, [mutate, refetch])
 
@@ -143,11 +152,14 @@ const App: React.FC = () => {
     <>
       <GraphQLContext.Provider value={contextValue}>
         <Header />
-        {searchActive ?
-          <SearchFileSet searchQuery={searchQuery} /> 
-          :
-          <AllFileSet />
-        }
+        <>
+          {loading ? 
+            ( <p></p> ) :
+           error ?
+            ( <p></p> ) :
+            (<FileSet files={files} />)
+          }
+        </>
         {/* <Footer /> */}
       </GraphQLContext.Provider>
     </>

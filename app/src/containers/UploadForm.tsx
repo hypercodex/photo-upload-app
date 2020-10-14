@@ -138,10 +138,13 @@ const UploadForm: React.FC<{handleCloseModal: Handler}> = ({handleCloseModal}) =
         handleRejectFile={handleRejectFile}
         handleAddFile={handleAddFile}
       />
-      <UploadFiles
-        handleSuccess={handleCloseModalClear}
-        files={state.acceptFiles}
-      />
+      {hasValidFiles ?
+        <UploadFiles
+          handleSuccess={handleCloseModalClear}
+          files={state.acceptFiles}
+        /> :
+        ''
+      }
       <UploadTargets 
         hasValidFiles={hasValidFiles}
         fileList={fileList}

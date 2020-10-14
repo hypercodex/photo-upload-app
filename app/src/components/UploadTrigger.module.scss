@@ -1,5 +1,15 @@
+@use '../styles/color';
+
+$buttonLight: scale-color(
+  color.$neonAlge,
+  $lightness: 35%,
+  $saturation: 20%
+);
+
+
 
 .button {
+  background-color: $buttonLight;
   padding: 5px 60px;
   font-size: 1rem;
   height: 35px;
