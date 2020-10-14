@@ -1,5 +1,5 @@
 # Photo Upload App
-File uploader application built with intention of following best modern application development practices.
+File uploader application built with intention of following best modern development practices.
 
 **Built With:**
 - [ NextJS ](https://nextjs.org/)
@@ -17,7 +17,7 @@ File uploader application built with intention of following best modern applicat
 
 Note: This is an experimental app, and as such, is not currently ready for production!
 
-### Installation and Development
+## Installation and Development
 #### Requirements
 - Unix like environment (macOS/Linux)
 - yarn
@@ -53,11 +53,6 @@ For a better development experience I recommend having a pannel open in `tmux` a
 - `cd api/ && yarn dev` ---> Backend NodeJS Express GraphQL service 
 - `cd api/ && yarn test --watch` ---> API Jest unit tests 
 - `docker-compose up` ---> MongoDB and MongoExpress services
-
-
-
-
-
 
 ---
 ### Security
@@ -176,7 +171,7 @@ General database security considerations:
   - App user role should follow Principle of Least Privledge (PLOP) ✔
 
 ##### MongoDB Security 
-Security Checklist (https://docs.mongodb.com/manual/administration/security-checklist/)
+[ Security Checklist ](https://docs.mongodb.com/manual/administration/security-checklist/)
 - Enable Access Control and Enforce Authentication ✔ 
 - Configure Role-Based Access Control ✔
 - Encrypt communication (TLS) ✗
@@ -203,20 +198,22 @@ Application source code is a major attack vector. As such, security on developme
 - VPNs usage protects against network monitoring ✔
 - Encrypted DNS further keeps browsing private ✔
 - Code review gets additonal eyes on code, along with mitigation against unknon-unknowns via greater mindshare
-
+---
 
 ### Improvements
----
 Development of this application was approached with the goal of creating a robust and production ready system (though notabley this is ultimately a "hobbyist configuration"... since to truly scale this you would use a cloud PaaS bucket with signed uploads). As such there a few feature that still need to be implemented, yet given the comprehensive approach taken, once features are implmented they should be rather stable. This follows a "start-right stay-right" strategy.
 
-Some features that still need to be developed are:
+Some features that still need to be developed and areas for improvement are:
+- Styling
 - Pagination
 - Click to add file meta-data
 - Persisted documents
 - Click to preview in modal.
+- Production deployment Dev/Ops
+
+---
 
 ### Libraries and Dependencies
----
 (Excluding devDependencies)
 #### API
 - **apollo-server-express**: Provides full featured GraphQL stack (server).
@@ -417,5 +414,5 @@ Description:
 I had fun developing this application. And I am going to take it a bit further to get it to a 'complete spot'. The robust aproach makes it so comprehensive functionality and security will be easy to provide for once final structure is implmented.
 
 ---
-## License
+### License
 MIT
