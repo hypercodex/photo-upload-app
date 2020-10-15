@@ -2,7 +2,13 @@
 @use '../styles/base';
 
 
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; } 
+}
+
 .panel {
+  animation: fadeIn ease-in 0.1s;
   position: relative;
   border: 1px solid color.$dark;
   border-radius: base.$borderRadius;
