@@ -37,7 +37,7 @@ Generate secrets:
 ` yarn setup`
 
 Which runs a custom CLI that prompts you for a seed and then creates secure secrets in the following `.env` files:
-- `api/.env`
+- `.env`
 - `api/.env.json`
 
 After running the above commands you can get a full development service environment by running:  
@@ -143,7 +143,7 @@ Mitigation approaches:
 - Use stateless double cookie pattern to protect againt cross-site request forgery (CSRF). ✔
 - Always filter and sanitize user input to protect against cross-site scripting (XSS) and command injection attacks. ✔
 - Defend against SQL/NoSQL injection attacks by using parameterized queries or prepared statements. ✔
-- Use the nmap and sslyze tools to test the configuration of your SSL ciphers, keys, and renegotiation as well as the validity of your certificate. ✔
+- Use the nmap and sslyze tools to test the configuration of your SSL ciphers, keys, and renegotiation as well as the validity of your certificate.
 - Use safe-regex to ensure your regular expressions are not susceptible to regular expression denial of service attacks. ✔
 
 
@@ -204,11 +204,11 @@ Application source code is a major attack vector. As such, security on developme
 - Good password and credential management practices ✔
 - VPNs usage protects against network monitoring ✔
 - Encrypted DNS further keeps browsing private ✔
-- Code review gets additonal eyes on code, along with mitigation against unknon-unknowns via greater mindshare
+- Code review gets additonal eyes on code, along with mitigation against unknown-unknowns via greater mindshare
 ---
 
 ### Improvements
-Development of this application was approached with the goal of creating a robust and production ready system (though notabley this is ultimately a "hobbyist configuration"... since to truly scale this you would use a cloud PaaS bucket with signed uploads). As such there a few feature that still need to be implemented, yet given the comprehensive approach taken, once features are implmented they should be rather stable. This follows a "start-right stay-right" strategy.
+Development of this application was approached with the goal of creating a robust and production ready system (though notabley this is ultimately a "hobbyist configuration"... since to truly scale this you would use a cloud PaaS bucket with signed uploads). As such there a few features that still need to be implemented, yet given the comprehensive approach taken, once features are implmented they should be rather stable. This follows a "start-right stay-right" strategy.
 
 Some features that still need to be developed as well as areas for improvement are:
 - Styling
@@ -242,7 +242,7 @@ Some features that still need to be developed as well as areas for improvement a
 - **graphql**: Javascript reference implementation of GraphQL spec. Provides `gql` dococument parsing.
 - **next**: Production React framework with premium developer experience and application scafolding.
 - **react**: A Javascript library for building UIs. Declarative, component-based, and unopinionated.
-- **react-dom**: React companion library that provides an interface to the browsers DOM API.
+- **react-dom**: React companion library that provides an interface to the browser's DOM API.
 - **react-dropzone**: Simple hook based React lib, that makes HTML5 based file upload zones.
 
 ---
@@ -255,7 +255,7 @@ This is a GraphQL API and as such has a bit of a different surface than traditio
 Description: 
 - Purpose: Entrypoint for queries and mutations against the service. 
 - Returns: Valid reponses per the application Schema for the Photo Upload App.
-- Accepts: Any valid query per the Schema 
+- Accepts: Any valid query per the Schema. 
 
 Note: All fields and types are documented at the schema documentation found at: http://localhost:4000/graphql
 #### Primary queries and mutations for the application:
@@ -364,7 +364,7 @@ Description:
 
 **Input variables format:**
 ```graphql
-{ variables: { input: { files: [{file: File!, size: number! }] }}}
+{ input: { files: [{file: File!, size: number! }] }}
 ```
 
 **Returns:**
@@ -404,7 +404,7 @@ Description:
 
 **Input variables format:**
 ```graphql
-{ variables: { input: { id: String! }}}
+{ input: { id: String! }}
 ```
 
 **Returns:**
@@ -419,7 +419,7 @@ Description:
 
 ---
 ### Other notes
-I had fun developing this application. And I am going to take it a bit further to get it to a 'complete spot'. The robust aproach makes it so comprehensive functionality and security will be easy to provide for once final structure is implmented.
+I had fun developing this application. I am going to take it a bit further to get it to a 'complete spot'. The robust aproach makes it so comprehensive functionality and security will be easy to provide for once final structure is implmented.
 
 ---
 ### License
