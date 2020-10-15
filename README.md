@@ -24,22 +24,24 @@ Note: This is an experimental app, and as such, is not currently ready for produ
 - docker and docker-compose
 
 #### Install notes
-Note regarding _secrets_: The distributed 'application' bundle has the secrets with correct values, as well as scrubbed `__TEMPLATE__`  secret/env files checked into the repository. If you are running the app from a Github clone (recommended), then fill the template env files with real values and remove the string `__TEMPLATE__` from the file name before running app for first time.  
-Env files required to run app:
-- `api/.env`
-- `api/.env.json`
-This repository uses `yarn-workspaces`, hence there is a single yarn.lock and all dependencies can be installed by running yarn in the root directory.
+This repository uses yarn-workspaces, as such there is a single yarn.lock and all dependencies can be installed by running yarn in the root directory.
 
-Run full development service environment with:
 
-**Install Dependencies:**
+Clone repository and install dependencies:  
 ```
+git clone git@github.com:hypercodex/photo-upload-app.git
+cd photo-upload-app/
 yarn
 ```
-**Run top-level environment:**
-```
-yarn devAll
-```
+Generate secrets:  
+` yarn setup`
+
+Which runs a custom CLI that prompts you for a seed and then creates secure secrets in the following `.env` files:
+- `api/.env`
+- `api/.env.json`
+
+After running the above commands you can get a full development service environment by running:  
+`yarn devAll`
 
 After all docker images have been built and yarn has installed dependancies for both the `api` and `app` workspace packages, you can browse the frontend NextJS app by visiting `localhost:3000`. In addition to the main application on port:3000 There several additional services that will be running:
 - GraphQl-Playground at: `localhost:4000/playground` 
