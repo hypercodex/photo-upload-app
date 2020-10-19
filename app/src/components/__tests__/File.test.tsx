@@ -6,7 +6,7 @@ import { GraphQLContext } from '../../containers/App'
 import File from '../File'
 
 
-import { mockFile } from '../../mocks/mockData'
+import { mockFile } from '../../__mocks__/data'
 
 
 test('test: File component functionality', () => {
@@ -14,11 +14,10 @@ test('test: File component functionality', () => {
   // Mock methods in the Provider
   const handleDelete = jest.fn()
   const refetch = jest.fn()
-  const setRefetch = jest.fn()
 
   render(
     <GraphQLContext.Provider value={
-      {handleDelete, refetch, setRefetch}
+      {handleDelete, refetch}
       } >
       <File idx={1} file={mockFile} />
     </GraphQLContext.Provider>
@@ -33,5 +32,6 @@ test('test: File component functionality', () => {
   // Assert the button calls the provided mutation function
   expect(handleDelete).toHaveBeenCalled()
   expect(handleDelete).toHaveBeenCalledWith(mockFile['id'])
+  expect(refetch).toHaveBeenCalled()
   
 })

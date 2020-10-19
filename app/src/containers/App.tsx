@@ -12,15 +12,17 @@ import {
   MutationFunction,
   RefetchQueriesFunction
 } from '@apollo/client'
+
 import { computeFileStats } from '../lib'
 import { StateContext } from '../containers/StateContainer'
 import Header from '../components/Header' 
 import FileSet from '../components/FileSet'
+import AppBody from '../components/AppBody'
 
 /* import Footer from '../components/Footer' */
 
 
-const ALL_FILES = gql`
+export const ALL_FILES = gql`
   query AllFiles {
     allFiles {
       id
@@ -30,7 +32,7 @@ const ALL_FILES = gql`
   }
 `
 
-const SEARCH_FILES = gql`
+export const SEARCH_FILES = gql`
   query SearchFiles($input: SearchFileInput!) {
     searchFiles(input: $input) {
       id
@@ -40,7 +42,7 @@ const SEARCH_FILES = gql`
   }
 `
 
-const MUTATION = gql`
+export const DELETE_MUTATION = gql`
   mutation DeleteFile($input: DeleteFileInput!) {
     deleteFile(input: $input) {
       id
@@ -66,7 +68,7 @@ const App: React.FC = () => {
 
   const { state, stateActions } = useContext(StateContext)
 
-  const [mutate] = useMutation(MUTATION)
+  const [mutate] = useMutation(DELETE_MUTATION)
   
   // All files
   const {
@@ -149,8 +151,8 @@ const App: React.FC = () => {
   }, [mutate, refetch])
 
   return (
-    <>
-      <GraphQLContext.Provider value={contextValue}>
+    <GraphQLContext.Provider value={contextValue}>
+      <AppBody>
         <Header />
         <>
           {loading ? 
@@ -161,8 +163,8 @@ const App: React.FC = () => {
           }
         </>
         {/* <Footer /> */}
-      </GraphQLContext.Provider>
-    </>
+      </AppBody>
+    </GraphQLContext.Provider>
   )
 } 
 
