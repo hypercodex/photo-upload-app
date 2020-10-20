@@ -6,10 +6,9 @@ import { GraphQLContext } from '../containers/App'
 import UploadTrigger from '../components/UploadTrigger'
 
 
-export const MUTATION = gql`
+export const UPLOAD_MUTATION = gql`
   mutation PostFile($input: PostFileInput!) {
     postFiles(input: $input) {
-      __typename
       id
       size
       url
@@ -28,9 +27,9 @@ interface UploadFilesProps {
 
 const UploadFiles: React.FC<UploadFilesProps> = ({files, handleSuccess}) => {
   
-  const {  refetch } = useContext(GraphQLContext)
+  const { refetch } = useContext(GraphQLContext)
 
-  const [mutate] = useMutation(MUTATION, {
+  const [mutate] = useMutation(UPLOAD_MUTATION, {
     update(cache, { data: { postFiles } }) {
       cache.modify({
         fields: {

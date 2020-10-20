@@ -5,9 +5,9 @@ import { makeExecutableSchema } from 'apollo-server-express'
 // the actual resolvers
 import resolvers from '../resolvers'
 // mock db service
-import mockService from '../mocks/mockService'
+import mockService from '../__mocks__/mockService'
 // mock data responses
-import { filesExternal as files } from '../mocks/mockData'
+import { filesExternal as files } from '../__mocks__/mockData'
 
 const testCaseTotal = {
   id: 'query totalFiles',

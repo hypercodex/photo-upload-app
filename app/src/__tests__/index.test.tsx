@@ -1,7 +1,7 @@
 import React from 'react'
 import { render, screen } from '@testing-library/react'
 
-import Index from '../index'
+import Index from '../pages/index'
 
 test('Index page has search input', () => {
   render(<Index />)

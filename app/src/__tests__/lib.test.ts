@@ -67,12 +67,12 @@ test('test: toMegabytes function', () => {
 test('test: computeFileStats function', () => {
 
   const mockFiles = [
-    {size: 100, id: '', ulid: '', url: '', filename: '', mimetype: '', extension: '', uploadedOn: new Date()},
-    {size: 100, id: '', ulid: '', url: '', filename: '', mimetype: '', extension: '', uploadedOn: new Date()},
-    {size: 100, id: '', ulid: '', url: '', filename: '', mimetype: '', extension: '', uploadedOn: new Date()},
-    {size: 100, id: '', ulid: '', url: '', filename: '', mimetype: '', extension: '', uploadedOn: new Date()},
-    {size: 100, id: '', ulid: '', url: '', filename: '', mimetype: '', extension: '', uploadedOn: new Date()},
-    {size: 100, id: '', ulid: '', url: '', filename: '', mimetype: '', extension: '', uploadedOn: new Date()},
+    {size: 100, id: '', ulid: '', url: '', originalUrl: '', filename: '', mimetype: '', extension: '', uploadedOn: new Date()},
+    {size: 100, id: '', ulid: '', url: '', originalUrl: '', filename: '', mimetype: '', extension: '', uploadedOn: new Date()},
+    {size: 100, id: '', ulid: '', url: '', originalUrl: '', filename: '', mimetype: '', extension: '', uploadedOn: new Date()},
+    {size: 100, id: '', ulid: '', url: '', originalUrl: '', filename: '', mimetype: '', extension: '', uploadedOn: new Date()},
+    {size: 100, id: '', ulid: '', url: '', originalUrl: '', filename: '', mimetype: '', extension: '', uploadedOn: new Date()},
+    {size: 100, id: '', ulid: '', url: '', originalUrl: '', filename: '', mimetype: '', extension: '', uploadedOn: new Date()},
   ]
 
   // Mock the action creator

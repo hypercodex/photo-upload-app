@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import {
   ApolloClient,
   InMemoryCache,
@@ -54,7 +54,7 @@ const GrapQlProvider: React.FC = ({ children }) => {
     }).then(data => {
       const { token } = data as { token: string }
       localStorage.setItem('authorization', token)
-    }).catch(err => null) 
+    }).catch(() => null) 
   }, [])
 
   return (

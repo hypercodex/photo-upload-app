@@ -3,9 +3,9 @@ import type { File } from '../../api/src/types'
 import type { SetStatsAction } from './containers/StateContainer'
 
 
-export async function fetcher(...args): Promise<unknown> {
+export async function fetcher(url: string, ...args: any[]): Promise<unknown> {
   try {
-    const response = await fetch(...args)
+    const response = await fetch(url, ...args)
 
     // if the server replies, there's always some data in json
     // if there's a network error, it will throw at the previous line
@@ -15,9 +15,9 @@ export async function fetcher(...args): Promise<unknown> {
       return data
     }
 
-    const error = new Error(response.statusText)
-    error.response = response
-    error.data = data
+    let error = new Error(response.statusText)
+    error = Object.defineProperty(error, 'response', { value: response, enumerable: true })
+    error = Object.defineProperty(error, 'data', { value: data, enumerable: true })
     throw error
   } catch (error) {
     if (!error.data) {
