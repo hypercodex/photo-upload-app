@@ -25,7 +25,7 @@ jobs:
       with:
         flag-name: test-app
         github-token: ${{ secrets.GITHUB_TOKEN }}
-        path-to-lcov: ./app/coverage/lcov.inf
+        path-to-lcov: ./app/coverage/lcov.info
         parallel: true
 
     - name: Run api tests
