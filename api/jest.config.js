@@ -3,7 +3,7 @@ module.exports = {
   testEnvironment: 'node',
   collectCoverageFrom: [
     '**/*.{js,jsx,ts,tsx}',
-    '!**/mocks/*',
+    '!**/__mocks__/*',
     '!**/coverage/**/*',
     '!**/*.config.js',
     '!**/*.d.ts',

@@ -65,7 +65,7 @@ export const mockUploadFiles = {
   },
   result: {
     data: {
-      filesApi
+      postFiles: mockFilesUploadPayload
     }
   }
 }

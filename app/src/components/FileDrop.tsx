@@ -27,13 +27,17 @@ const FileDrop: React.FC<FileDropProps> = ({ handleAddFile, handleRejectFile }) 
     acceptedFiles.forEach((file) => {
       handleAddFile(file)
     })
+    const rejectReasons = ['file-invalid-type', 'file-too-large']
     fileRejections.forEach((file) => {
       file.errors.forEach((err) => {
-        if (err.code === "file-invalid-type") {
-          handleRejectFile(file, `Error with file: ${file.file.name} - ${err.message}.`)
+        const reject = () => {
+          handleRejectFile(
+            file,
+            `Error with file: ${file.file.name} - ${err.message}.`
+          )
         }
-        else if (err.code === "file-too-large") {
-          handleRejectFile(file, `Error with file: ${file.file.name} - ${err.message}.`);
+        if (rejectReasons.some(e => e === err.code)) {
+          reject()
         }
       })
     })

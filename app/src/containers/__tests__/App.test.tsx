@@ -6,8 +6,6 @@ import {
   screen,
   fireEvent,
   waitFor,
-  findByText,
-  findAllByText
 } from '@testing-library/react'
 
 
@@ -39,6 +37,8 @@ const mockState = {
 }
 
 test('test: App base case allData', async () => {
+
+  mockSetStats.mockClear()
 
   render(
     <StateContext.Provider value={mockState} >
@@ -81,6 +81,10 @@ const mockSearchState = {
 
 test('test: App searchFiles', async () => {
 
+  mockHandleSetSearch.mockClear()
+  mockSetStats.mockClear()
+  mockHandleClearSearch.mockClear()
+
   render(
     <StateContext.Provider value={mockSearchState}>
       <MockedProvider mocks={[ mockAllFiles, mockSearchFiles ]} addTypename={false}  >
@@ -96,7 +100,7 @@ test('test: App searchFiles', async () => {
   // Set stats action is called when there are query results
   await waitFor(() => {
     expect(mockSetStats).toHaveBeenCalled()
-    expect(mockSetStats).toHaveBeenCalledWith(2, 200)
+    expect(mockSetStats).toHaveBeenCalledWith(1, 100)
   })
 
   // Canging text in the textbox dispatches set search action
@@ -104,6 +108,14 @@ test('test: App searchFiles', async () => {
   await waitFor(() => {
     expect(mockHandleSetSearch).toHaveBeenCalled()
     expect(mockHandleSetSearch).toHaveBeenCalledTimes(1)
+  })
+
+
+  // Pressing the Escape key calls the clear search dispatch action
+  fireEvent.keyDown(screen.getByRole('textbox'), { key: 'Escape', code: 'Escape' } )
+
+  await waitFor(() => {
+    expect(mockHandleClearSearch).toHaveBeenCalled()
   })
 })
 

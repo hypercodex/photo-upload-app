@@ -58,7 +58,7 @@ type RefetchDefault = () => void
 
 export const GraphQLContext = React.createContext<{
   handleDelete: MutationFunction | MutateHandlerDefault;
-  refetch?: RefetchQueriesFunction | RefetchDefault; 
+  refetch: RefetchQueriesFunction | RefetchDefault; 
 }>({
   handleDelete: (async () => null),
   refetch: () => null,
@@ -146,7 +146,7 @@ const App: React.FC = () => {
       handleDelete: (fileId: string) => {
         mutate({ variables: { input: { id: fileId }}})
       },
-      refetch,
+      refetch: refetch ? refetch : () => null,
     }
   }, [mutate, refetch])
 
