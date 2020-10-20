@@ -6,12 +6,14 @@
     ],
     "devDependencies": {
         "concurrently": "^5.3.0",
+        "lcov-result-merger": "^3.1.0",
         "ts-node": "^9.0.0"
     },
     "scripts": {
         "setup": "ts-node lib/setup.ts",
         "start": "",
         "dev": "concurrently 'cd api/src/ && yarn dev' 'cd app/src && yarn dev'",
-        "devAll": "concurrently 'cd api/src/ && yarn dev' 'cd app/src && yarn dev' 'docker-compose up'"
+        "devAll": "concurrently 'cd api/src/ && yarn dev' 'cd app/src && yarn dev' 'docker-compose up'",
+        "mergeCoverage": "lcov-result-merger './**/lcov.info' './lcov.info'"
     }
 }

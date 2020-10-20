@@ -8,4 +8,4 @@ app/.next/*
 api/assets/uploads/*
 !**/assets/uploads/.keep
 **/yarn-error.log
-
+lcov.info

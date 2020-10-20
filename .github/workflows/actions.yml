@@ -20,33 +20,16 @@ jobs:
     - name: Run app tests
       run: cd app && yarn test --coverage
 
-    - name: coveralls
-      uses: coverallsapp/github-action@master
-      with:
-        flag-name: test-app
-        github-token: ${{ secrets.GITHUB_TOKEN }}
-        path-to-lcov: ./app/coverage/lcov.info
-        parallel: true
-
     - name: Run api tests
       run: cd api && yarn test --coverage
+
+    - name: Merge results
+      run: yarn mergeCoverage
 
     - name: coveralls
       uses: coverallsapp/github-action@master
       with:
         flag-name: test-api
         github-token: ${{ secrets.GITHUB_TOKEN }}
-        path-to-lcov: ./api/coverage/lcov.info
-        parallel: true
+        path-to-lcov: ./lcov.info
 
-
-  finish:
-    needs: tests
-    runs-on: ubuntu-latest
-    steps:
-    - name: Coveralls Finished
-      uses: coverallsapp/github-action@master
-      with:
-        github-token: ${{ secrets.GITHUB_TOKEN }}
-        parallel-finished: true
-        base-path: ./
