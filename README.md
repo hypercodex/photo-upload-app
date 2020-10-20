@@ -3,7 +3,8 @@
 
 File uploader application built with intention of following best modern development practices.
 
-[![Actions Status](https://github.com/hypercodex/photo-upload-app/workflows/CI/badge.svg)](https://github.com/hypercodex/photo-upload-app/actions)
+[![Actions Status](https://github.com/hypercodex/photo-upload-app/workflows/build/badge.svg)](https://github.com/hypercodex/photo-upload-app/actions)
+[![license](https://img.shields.io/badge/License-MIT-purple.svg)](LICENSE)
 
 **Built With:**
 - [NextJS](https://nextjs.org/)
