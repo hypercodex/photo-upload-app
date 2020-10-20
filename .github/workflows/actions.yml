@@ -1,5 +1,5 @@
 
-name: CI
+name: build
 
 on:
   push:
@@ -8,7 +8,7 @@ on:
     branches: [ master ]
 
 jobs:
-  tests:
+  build:
     runs-on: ubuntu-latest
 
     steps:
@@ -18,35 +18,13 @@ jobs:
       run: yarn
     
     - name: Run app tests
-      run: cd app && yarn test --coverage
-
-    - name: coveralls
-      uses: coverallsapp/github-action@master
-      with:
-        flag-name: test-app
-        github-token: ${{ secrets.GITHUB_TOKEN }}
-        path-to-lcov: ./app/coverage/lcov.info
-        parallel: true
+      run: cd app && yarn --coverage
+    
+    - name: Build Next app
+      run: cd app && yarn build
 
     - name: Run api tests
       run: cd api && yarn test --coverage
 
-    - name: coveralls
-      uses: coverallsapp/github-action@master
-      with:
-        flag-name: test-api
-        github-token: ${{ secrets.GITHUB_TOKEN }}
-        path-to-lcov: ./api/coverage/lcov.info
-        parallel: true
-
-
-  finish:
-    needs: tests
-    runs-on: ubuntu-latest
-    steps:
-    - name: Coveralls Finished
-      uses: coverallsapp/github-action@master
-      with:
-        github-token: ${{ secrets.GITHUB_TOKEN }}
-        parallel-finished: true
-        base-path: ./
+    - name: Build API 
+      run: cd api && yarn build

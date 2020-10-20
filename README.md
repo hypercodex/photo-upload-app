@@ -1,5 +1,9 @@
 # Photo Upload App
+
+
 File uploader application built with intention of following best modern development practices.
+
+[![Actions Status](https://github.com/hypercodex/photo-upload-app/workflows/CI/badge.svg)](https://github.com/hypercodex/photo-upload-app/actions)
 
 **Built With:**
 - [NextJS](https://nextjs.org/)
