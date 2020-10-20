@@ -19,8 +19,12 @@ jobs:
     
     - name: Run app tests
       run: cd app && yarn --coverage
+    
+    - name: Build Next app
       run: cd app && yarn build
 
     - name: Run api tests
       run: cd api && yarn test --coverage
+
+    - name: Build API 
       run: cd api && yarn build
