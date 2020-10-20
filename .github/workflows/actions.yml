@@ -8,7 +8,7 @@ on:
     branches: [ master ]
 
 jobs:
-  tests:
+  build:
     runs-on: ubuntu-latest
 
     steps:
@@ -18,18 +18,9 @@ jobs:
       run: yarn
     
     - name: Run app tests
-      run: cd app && yarn test --coverage
+      run: cd app && yarn --coverage
+      run: cd app && yarn build
 
     - name: Run api tests
       run: cd api && yarn test --coverage
-
-    - name: Merge results
-      run: yarn mergeCoverage
-
-    - name: coveralls
-      uses: coverallsapp/github-action@master
-      with:
-        flag-name: test-api
-        github-token: ${{ secrets.GITHUB_TOKEN }}
-        path-to-lcov: ./lcov.info
-
+      run: cd api && yarn build
