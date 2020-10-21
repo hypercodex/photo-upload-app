@@ -48,12 +48,12 @@ Which runs a custom CLI that prompts you for a seed and then creates secure secr
 After running the above commands you can get a full development service environment by running:  
 `yarn devAll`
 
-After all docker images have been built and yarn has installed dependancies for both the `api` and `app` workspace packages, you can browse the frontend NextJS app by visiting `localhost:3000`. In addition to the main application on port:3000 There several additional services that will be running:
+After all docker images have been built and yarn has installed dependencies for both the `api` and `app` workspace packages, you can browse the frontend NextJS app by visiting `localhost:3000`. In addition to the main application on port:3000 There several additional services that will be running:
 - GraphQl-Playground at: `localhost:4000/playground` 
 - Mongo-Express at: `localhost:8081`
 
 **Development run environment:**
-For a better development experience I recommend having a pannel open in `tmux` and running each of the following in their own terminal (from within the repository root):
+For a better development experience I recommend having a panel open in `tmux` and running each of the following in their own terminal (from within the repository root):
 
 - `cd app/ && yarn dev`    ---> Client NextJS App 
 - `cd app/ && yarn test --watch` ---> Frontend Jest unit tests
@@ -67,19 +67,19 @@ For a better development experience I recommend having a pannel open in `tmux` a
 
 This baseline application type (public file upload service w/o accounts, or TLS). Has a rather broad attack surface. There is no 'silver bullet' to securing such an application, as such "security by depth", is the only way to get reasonable assurances.
 
-Several noteable security features are the following: 
-- Containerized/isolated database service, with secured user that runs with less privilges. ✔
+Several notable security features are the following: 
+- Containerized/isolated database service, with secured user that runs with less privileges. ✔
 - Not using database IDs as public identifiers. ✔
 - Using cryptographically random hash (ULID) as file names in the upload server. ✔
 - Client side file upload restrictions. ✔
-- Basic server-side saitization of all inputs. ✔
+- Basic server-side sanitization of all inputs. ✔
 - Enabling API service hardening library (Express-Helmet) on backend graphql service. ✔
 - Using Typescript to insure runtime has minimal errors. ✔
-- File scurbbing on upload with optimized version served instead of original. ✔
+- File scrubbing on upload with optimized version served instead of original. ✔
 - Double cookie (stateless) CSRF protection strategy. ✔
 
 
-The following is a long list of security considerations that are relevant to this specific type of application. Some but certainlly not all of them have been implemented or are planned for future iterations and review. 
+The following is a long list of security considerations that are relevant to this specific type of application. Some but certainly not all of them have been implemented or are planned for future iterations and review. 
 
 #### API
 The API is a GraphQL API implemented with Apollo and Express in Node.
@@ -92,15 +92,15 @@ Common GraphQL security considerations are the following:
   - Limiting query depth ✗
   - Limiting query complexity ✗
 ##### Monitoring and Metrics: ✗
-  - Metrics can provide a comprehesive overview of what queries are popular
+  - Metrics can provide a comprehensive overview of what queries are popular
   - Knowing where the server is spending time can help identify bottlenecks. 
-  - Monitoring allows identification of unknown attack vectors and attempts in realtime.
+  - Monitoring allows identification of unknown attack vectors and attempts in real-time.
 ##### Denial of Service Attacks
 Even with mitigation effort around large and malicious queries, clients can still send an excessive number of queries to the API. Some mitigation approaches are as follows:
   - Rate limiting queries
   - Limiting upload size
 ##### User Submitted Data and Variables
-Any data sent to the API from the client should never be trusted. Any and all form fields, query variables, and file uploads should be excaped and sanitized. This includeds:
+Any data sent to the API from the client should never be trusted. Any and all form fields, query variables, and file uploads should be escaped and sanitized. This includes:
   - Form data ✔ 
   - Query parameters ✔
   - File uploads ✔
@@ -116,7 +116,7 @@ The GraphQL server is implemented with Express in NodeJS.
 - Use TLS ✗
     - This app doesn't implement TLS certs in development but in a production environment, the cert can be provided by the PaaS environment for the service.
 - Ensure dependencies are secure: ✗
-    - Use a combination of `npm audit` and `snyk test`, providing analysis of dependencies and checks against known vulnerablities respectively.
+    - Use a combination of `npm audit` and `snyk test`, providing analysis of dependencies and checks against known vulnerabilities respectively.
 
 ######  NodeJS Security 
 Considerations 
@@ -133,7 +133,7 @@ Considerations
   - Cross-Site Scripting (XSS) ✔
   - SQL/NoSQL Injection
   - Command injection
-- Secure Transimission
+- Secure Transmission
   - SSL Version, Algorithms, Key Length
   - Strict-Transport Security (HSTS) ✔
 - Denial of Service
@@ -145,7 +145,7 @@ Considerations
   - Upstream security issues with dependencies
 
 Mitigation approaches:
-- Use stateless double cookie pattern to protect againt cross-site request forgery (CSRF). ✔
+- Use stateless double cookie pattern to protect against cross-site request forgery (CSRF). ✔
 - Always filter and sanitize user input to protect against cross-site scripting (XSS) and command injection attacks. ✔
 - Defend against SQL/NoSQL injection attacks by using parameterized queries or prepared statements. ✔
 - Use the nmap and sslyze tools to test the configuration of your SSL ciphers, keys, and renegotiation as well as the validity of your certificate.
@@ -175,11 +175,11 @@ Additional information file notes can be found in the following OWASP articles:<
 
 #### Database
 General database security considerations:
-- Any user submitted data **must** be sanitized and excaped before being used in a database query. ✔
-- Query paramartization should be implemented. ✔
+- Any user submitted data **must** be sanitized and escaped before being used in a database query. ✔
+- Query parameterization should be implemented. ✔
 - User actions should not be able to trigger long running queries. Use timeouts or max query times.
-- Application database role should not be root and should have minimum privilges. ✔
-  - App user role should follow Principle of Least Privledge (PLOP) ✔
+- Application database role should not be root and should have minimum privileges. ✔
+  - App user role should follow Principle of Least Priviledge (PLOP) ✔
 
 ##### MongoDB Security 
 - Enable Access Control and Enforce Authentication ✔ 
@@ -195,25 +195,25 @@ General database security considerations:
 Additional MongoDB considerations can be found in MongoDB's [security checklist](https://docs.mongodb.com/manual/administration/security-checklist/).
 
 #### Secrets
-Most modern application architectures provide credentials and secrets via environment variables. This allows the application to use whichever set of credentials are relevant for a particular environment without hardcoding them.
+Most modern application architectures provide credentials and secrets via environment variables. This allows the application to use whichever set of credentials are relevant for a particular environment without hard-coding them.
 - Never check secrets into version control. ✔
 - Use different secrets and credentials based on environment. ✗
 - Use Key Management Services (KMS) to distribute secrets between developers and environments. ✗
-- File permissions should be set corrrectly on secrets
+- File permissions should be set correctly on secrets
 
 #### Developer Machines / Code Repositories
 Application source code is a major attack vector. As such, security on development machines needs to be adequate.
 - Development machines should run secure OSs and kept up with any security patches ✔
 - Enable code signing for repository pushes ✔
-- Careful dependency management to avoid upstrem compromised software
+- Careful dependency management to avoid upstream compromised software
 - Good password and credential management practices ✔
 - VPNs usage protects against network monitoring ✔
 - Encrypted DNS further keeps browsing private ✔
-- Code review gets additonal eyes on code, along with mitigation against unknown-unknowns via greater mindshare
+- Code review gets additional eyes on code, along with mitigation against unknown-unknowns via greater mind-share
 ---
 
 ### Improvements
-Development of this application was approached with the goal of creating a robust and production ready system (though notabley this is ultimately a "hobbyist configuration"... since to truly scale this you would use a cloud PaaS bucket with signed uploads). As such there a few features that still need to be implemented, yet given the comprehensive approach taken, once features are implmented they should be rather stable. This follows a "start-right stay-right" strategy.
+Development of this application was approached with the goal of creating a robust and production ready system (though notably this is ultimately a "hobbyist configuration"... since to truly scale this you would use a cloud PaaS bucket with signed uploads). As such there a few features that still need to be implemented, yet given the comprehensive approach taken, once features are implmented they should be rather stable. This follows a "start-right stay-right" strategy.
 
 Some features that still need to be developed as well as areas for improvement are:
 - Styling
@@ -231,22 +231,22 @@ Some features that still need to be developed as well as areas for improvement a
 #### API
 - **apollo-server-express**: Provides full featured GraphQL stack (server).
 - **cookie-parser**: Reads cookies from express request, bridges cookies into Apollo handler.
-- **cookies**: Used to generate signed cookies with rotatatable keys.
+- **cookies**: Used to generate signed cookies with rotatable keys.
 - **cors**: Cross Origin Resource Sharing (CORS) Express server middleware.
 - **express**: Minimalist web framework for NodeJS and GraphQL service layer.
 - **helmet**: Helper library for securing Express NodeJS services.
 - **mongodb**: Official MongoDB NodeJS driver. 
 - **sharp**: High speed image processing pipelines in NodeJS for conversion of images into web friendly formats.
-- **ulid**: (Universally Unique Lexicographically Sortable Idenfiers): For file upload names and secure token generation. Also have nice property that they are monontonically increasing with a built in timestamp.
+- **ulid**: (Universally Unique Lexicographically Sortable Identifiers): For file upload names and secure token generation. Also have nice property that they are monotonically increasing with a built in timestamp.
 
 #### APP
 
 - **@apollo/client**: React GraphQL (client) that provides hooks to call to a GraphQL spec service.
 - **apollo-link-context**: Set context in the custom chain of `Link` actions for each GraphQL operation. 
 - **apollo-upload-client**: Terminating `Link` in the GraphQL client side network stack.
-- **graphql**: Javascript reference implementation of GraphQL spec. Provides `gql` dococument parsing.
-- **next**: Production React framework with premium developer experience and application scafolding.
-- **react**: A Javascript library for building UIs. Declarative, component-based, and unopinionated.
+- **graphql**: JavaScript reference implementation of GraphQL spec. Provides `gql` document parsing.
+- **next**: Production React framework with premium developer experience and application scaffolding.
+- **react**: A JavaScript library for building UIs. Declarative, component-based, and un-opinionated.
 - **react-dom**: React companion library that provides an interface to the browser's DOM API.
 - **react-dropzone**: Simple hook based React lib, that makes HTML5 based file upload zones.
 
@@ -259,7 +259,7 @@ This is a GraphQL API and as such has a bit of a different surface than traditio
 ###### (POST) /graphql
 Description: 
 - Purpose: Entrypoint for queries and mutations against the service. 
-- Returns: Valid reponses per the application Schema for the Photo Upload App.
+- Returns: Valid response per the application Schema for the Photo Upload App.
 - Accepts: Any valid query per the Schema. 
 
 Note: All fields and types are documented at the schema documentation found at: http://localhost:4000/graphql
@@ -424,7 +424,7 @@ Description:
 
 ---
 ### Other notes
-I had fun developing this application. I am going to take it a bit further to get it to a 'complete spot'. The robust aproach makes it so comprehensive functionality and security will be easy to provide for once final structure is implmented.
+I had fun developing this application. I am going to take it a bit further to get it to a 'complete spot'. The robust approach makes it so comprehensive functionality and security will be easy to provide for once final structure is implemented.
 
 ---
 ### License
